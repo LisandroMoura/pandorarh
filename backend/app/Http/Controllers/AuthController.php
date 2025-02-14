@@ -3,14 +3,44 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Traits\LoginRules;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\JsonResponse;
 
 class AuthController extends Controller
 {
+    use LoginRules;
+
+    /**
+     * Metodo de validação das informações recebidas no request
+     * Refatorar:
+     * Fatarado o código para observas os princípios de DRY (Don't Repeat Yourself) e 
+     * o princípio de Responsabilidade Única (SRP) do SOLID.
+     * 
+     * @param Request $request
+     * @return boolean
+     */
+    private function validateRequest(Request $request): bool | JsonResponse
+    {
+        $validator = Validator::make(
+            $request->all(),
+            $this->loginRules(),
+            $this->loginMessages()
+        );
+
+        if ($validator->fails()) {
+            return response()->json([
+                'message' => 'Validation failed',
+                'errors' => $validator->errors()
+            ], 422);
+        }
+        return true;
+    }
+
     /**
      * função responsável pelo cadastramento de usuários
      *
@@ -21,16 +51,9 @@ class AuthController extends Controller
     {
         // Validar os dados recebidos
         // Usando a Facedes Validator para maior controle das msgs de erro
-        $validator = Validator::make($request->all(), [
-            'email' => 'required|email',
-            'password' => 'required',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json([
-                'message' => 'Validation failed',
-                'errors' => $validator->errors()
-            ], 422);
+        $validation = $this->validateRequest($request);
+        if ($validation !== true) {
+            return $validation;
         }
 
         // Criar um novo usuário
@@ -54,12 +77,11 @@ class AuthController extends Controller
      */
     public function login(Request $request)
     {
-
         // Validar os dados recebidos
-        $request->validate([
-            'email' => 'required|email',
-            'password' => 'required',
-        ]);
+        $validation = $this->validateRequest($request);
+        if ($validation !== true) {
+            return $validation;
+        }
 
         // Verificar se o usuário existe
         $credentials = $request->only('email', 'password');
