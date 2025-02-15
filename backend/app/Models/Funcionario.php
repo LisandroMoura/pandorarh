@@ -32,20 +32,19 @@ class Funcionario extends Model
         'departamento',
         'tipo_contrato',
         'carga_horaria_semanal',
+        'data_admissao',
         'status',
-    ];
-
-    protected $hidden = [
         'salario',
         'banco',
         'agencia',
         'conta',
         'pis',
         'ctps',
-        'data_admissao',
         'data_rescisao',
         'motivo_rescisao',
     ];
+
+    protected $hidden = [];
 
     protected $casts = [
         'data_nascimento' => 'date',

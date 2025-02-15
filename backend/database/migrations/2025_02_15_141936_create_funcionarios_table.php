@@ -15,23 +15,23 @@ return new class extends Migration
         Schema::create('funcionarios', function (Blueprint $table) {
             $table->id();
             $table->string('nome', 150);
-            $table->string('apelido', 150);
+            $table->string('apelido', 150)->nullable();
             $table->char('cpf', 11)->unique();
             $table->string('rg', 20)->nullable();
             $table->date('data_nascimento');
             $table->enum('genero', ['Masculino', 'Feminino', 'Não informado'])->default('Não informado');
             $table->enum('estado_civil', ['Solteiro', 'Casado', 'Divorciado', 'Viúvo', 'Separado', 'União Estável'])->default('Solteiro');
-            $table->string('nome_pai', 150);
-            $table->string('nome_mae', 150);
+            $table->string('nome_pai', 150)->nullable();
+            $table->string('nome_mae', 150)->nullable();
             $table->string('telefone', 20)->nullable();
             $table->string('email', 150)->unique()->nullable();
-            $table->text('endereco');
+            $table->text('endereco')->nullable();
             $table->char('cep', 8)->nullable();
             $table->string('cidade', 100)->nullable();
             $table->char('estado', 2)->nullable();
             $table->string('departamento', 100)->nullable();
             $table->date('data_admissao');
-            $table->enum('tipo_contrato', ['CLT', 'PJ', 'Estágio', 'Autônomo', 'Temporário']);
+            $table->enum('tipo_contrato', ['CLT', 'PJ', 'Estágio', 'Autônomo', 'Temporário'])->default('CLT');
             $table->decimal('salario', 10, 2);
             $table->integer('carga_horaria_semanal')->default(40);
             $table->string('banco', 100)->nullable();
