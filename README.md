@@ -1,6 +1,8 @@
 # pandorarh
 Pandora RH. Sistema de Gestão de Recursos Humanos da empresa Pandora (simulação) - "Tirando Talendos da Caixa..." 
 
+Desafio técnico para a vaga de programador Fullstack bruning sistemas
+
 ## Links
 
 Link para o projeto:
