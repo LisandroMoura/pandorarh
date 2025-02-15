@@ -4,6 +4,7 @@ namespace App\Traits;
 
 use App\Models\Funcionario;
 use App\Rules\CpfValidate;
+use App\Rules\StatusValidate;
 
 trait FuncionarioRules
 {
@@ -16,6 +17,9 @@ trait FuncionarioRules
             'data_nascimento' => 'required',
             'data_admissao' => 'required',
             'salario' => 'required|numeric',
+            'pis' => 'unique:funcionarios,pis',
+            'ctps' => 'unique:funcionarios,ctps',
+            'status' => ['required', new StatusValidate],
         ];
     }
 
@@ -24,10 +28,13 @@ trait FuncionarioRules
     {
         return [
             'email' => 'email|unique:funcionarios,email,' . $funcionario->id,
-            'data_nascimento' => 'nullable|date', // Permite valor vazio
-            'data_admissao' => 'nullable|date', // Permite valor vazio
+            'data_nascimento' => 'nullable|date',
+            'data_admissao' => 'nullable|date',
             'salario' => 'numeric',
             'cpf' => ['unique:funcionarios,cpf,' . $funcionario->id, new CpfValidate()],
+            'pis' => 'unique:funcionarios,pis,' . $funcionario->id,
+            'ctps' => 'unique:funcionarios,ctps,' . $funcionario->id,
+            'status' => [new StatusValidate],
         ];
     }
 
@@ -43,6 +50,8 @@ trait FuncionarioRules
             'data_admissao.required' => "A data de admissão é obrigatória",
             'salario.required' => "O salário deve ser informado",
             'salario.numeric' => "O salário deve ter um valor numérico",
+            'ctps.unique' => 'Ctps já cadastrada',
+            'pis.unique' => 'Pis já cadastrado',
             'cpf.unique' => 'Cpf já cadastrado',
             'cpf.required' => 'Cpf deve ser informado',
         ];
