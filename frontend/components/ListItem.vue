@@ -8,12 +8,11 @@
       </div>
 
       <div class="flex gap-2">
-        <button
-          @click="ver(id)"
+        <button @click="ver(id)"
           class="px-3 py-1 text-sm text-green-600 hover:text-green-900 border border-green-600 rounded-md transition-colors">
           Ver
         </button>
-        <button
+        <button @click="edit(id)"
           class="px-3 py-1 text-sm text-blue-600 hover:text-blue-800 border border-blue-500 rounded-md transition-colors">
           Editar
         </button>
@@ -26,7 +25,7 @@
   </div>
 </template>
 
-<script  setup>
+<script setup>
 defineProps({
   id: Number,
   nome: String,
@@ -36,6 +35,11 @@ defineProps({
 const ver = (id) => {
   useRouter().push('/funcionarios/' + id);
 }
+
+const edit = (id) => {
+  useRouter().push('/funcionarios/edit/' + id);
+}
+
 </script>
 
 <style></style>
