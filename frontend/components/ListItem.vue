@@ -2,9 +2,9 @@
   <div class="bg-white rounded-lg shadow-md p-4 mb-4">
     <div class="flex justify-between items-start">
       <div class="flex-1">
-        <div class="text-sm text-gray-500">id: 999</div>
-        <h3 class="text-lg font-semibold text-gray-800">João da Silva</h3>
-        <p class="text-sm text-gray-600">Nascimento: 01/01/1990</p>
+        <div class="text-sm text-gray-500">id: {{ id }}</div>
+        <h3 class="text-lg font-semibold text-gray-800">{{ nome }}</h3>
+        <p class="text-sm text-gray-600">Nascimento: {{ data_nascimento }}</p>
       </div>
 
       <div class="flex gap-2">
@@ -26,6 +26,12 @@
 </template>
 
 <script lang="ts" setup>
+defineProps({
+  id: Number,
+  nome: String,
+  data_nascimento: String
+}
+);
 </script>
 
 <style></style>
