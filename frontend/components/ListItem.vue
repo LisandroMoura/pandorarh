@@ -9,6 +9,7 @@
 
       <div class="flex gap-2">
         <button
+          @click="ver(id)"
           class="px-3 py-1 text-sm text-green-600 hover:text-green-900 border border-green-600 rounded-md transition-colors">
           Ver
         </button>
@@ -25,13 +26,16 @@
   </div>
 </template>
 
-<script lang="ts" setup>
+<script  setup>
 defineProps({
   id: Number,
   nome: String,
   data_nascimento: String
 }
 );
+const ver = (id) => {
+  useRouter().push('/funcionarios/' + id);
+}
 </script>
 
 <style></style>

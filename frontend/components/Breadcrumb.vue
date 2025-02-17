@@ -40,7 +40,6 @@ const irParaForm = () => {
   router.push("/funcionarios/cadastro"); // Redireciona para a home, que provê a listagem de funcionários.
 };
 
-const route = useRoute();
 
 defineProps<{
   currentPage: String,
