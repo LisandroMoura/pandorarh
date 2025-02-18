@@ -16,7 +16,7 @@
           class="px-3 py-1 text-sm text-blue-600 hover:text-blue-800 border border-blue-500 rounded-md transition-colors">
           Editar
         </button>
-        <button
+        <button @click="destroy(id)"
           class="px-3 py-1 text-sm text-red-600 hover:text-red-800 border border-red-500 rounded-md transition-colors">
           Excluir
         </button>
@@ -39,6 +39,46 @@ const ver = (id) => {
 const edit = (id) => {
   useRouter().push('/funcionarios/edit/' + id);
 }
+
+import { useNuxtApp } from '#app'
+
+const destroy = async (id) => {
+  const router = useRouter()
+
+  if (!confirm('Tem certeza que deseja excluir este item?')) {
+    return
+  }
+
+  try {
+
+    const response = await fetch(`http://localhost:8000/api/funcionarios/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error('Erro ao excluir funcionário');
+
+    }
+
+
+
+    refreshNuxtData('funcionarios') // Usando a mesma chave usada no useFetch
+
+    // Redirecionando para a lista
+    useRouter().push({
+      path: '/funcionarios/',
+      query: { success: 'Funcionário excluído com sucesso!' }
+    })
+
+  } catch (error) {
+    // useNuxtApp().$toast.error('Erro ao excluir funcionário');
+    console.error('Erro ao excluir funcionário:', error)
+  }
+}
+
 
 </script>
 
