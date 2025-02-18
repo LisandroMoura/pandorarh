@@ -32,6 +32,10 @@ defineProps({
   data_nascimento: String
 }
 );
+
+const successMessage = useState('successMessage')
+
+
 const ver = (id) => {
   useRouter().push('/funcionarios/' + id);
 }
@@ -46,6 +50,7 @@ const destroy = async (id) => {
   const router = useRouter()
   const { authFetch } = useFetchAuth()
 
+
   if (!confirm('Tem certeza que deseja excluir este item?')) {
     return
   }
@@ -56,16 +61,19 @@ const destroy = async (id) => {
       method: 'DELETE',      
     });
 
-    if (!response.ok) {
-      throw new Error('Erro ao excluir funcionário');
-    }
+    successMessage.value = 'Funcionário deletado com sucesso!'
+    
+    
+    // if (!response.ok) {
+      // successMessage.value = 'Erro ao excluir funcionário'
+      // throw new Error('Erro ao excluir funcionário');
+    // }
 
     refreshNuxtData('funcionarios') // Usando a mesma chave usada no useFetch
 
     // Redirecionando para a lista
     useRouter().push({
-      path: '/funcionarios/',
-      query: { success: 'Funcionário excluído com sucesso!' }
+      path: '/funcionarios',
     })
 
   } catch (error) {
