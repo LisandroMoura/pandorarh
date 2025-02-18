@@ -9,6 +9,7 @@ export const useFetchAuth = () => {
    * e armazenando no localStorage
    */
   const authLogin = async () => {
+    // importanto as variáveis de ambiente do config
     const config = useRuntimeConfig();
     try {
       const response = await $fetch(`${config.public.apiBaseUrl}/login`, {
