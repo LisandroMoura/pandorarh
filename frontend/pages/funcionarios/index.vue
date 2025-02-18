@@ -2,8 +2,11 @@
   <!-- Página de Lista de Colaboradores -->
   <div class="w-full px-2">
     <Breadcrumb titulo="Lista de funcionários cadastrados:" currentPage="list" />
-    <div class="mx-auto p-4 bg-white rounded-lg shadow-md">
+    
+    <!--mensagens -->
+    <Message />
 
+    <div class="mx-auto p-4 bg-white rounded-lg shadow-md">
       <!-- Cabeçalho -->
       <div class="border-b pb-4 mb-6 ">
         <div>
@@ -24,8 +27,9 @@
 
 <script setup>
 
-const { authFetch } = useFetchAuth()
 
+const { authFetch } = useFetchAuth()
+const successMessage = useState('successMessage')
 const { data: funcionarios } = await useAsyncData('funcionarios', async () => {
 
   try {
@@ -39,7 +43,7 @@ const { data: funcionarios } = await useAsyncData('funcionarios', async () => {
     return response.funcionarios.map(item => {
       return {
         ...item,
-        data_nascimento: new Date(item.data_nascimento).toLocaleDateString('pt-BR')
+        data_nascimento: new Intl.DateTimeFormat('pt-BR', { timeZone: 'UTC' }).format(new Date(item.data_nascimento))
       }
     })
 
