@@ -215,8 +215,7 @@
 
 
 <script setup>
-import { ref, reactive, onMounted, watch } from 'vue'
-import { extractRuntimeProps } from 'vue/compiler-sfc';
+import { ref, reactive, onMounted } from 'vue'
 const { authFetch } = useFetchAuth()
 const router = useRouter()
 const isLoading = ref(false)
@@ -324,13 +323,6 @@ const limpar = () => {
   }
 }
 
-// Método auxiliar para tratamento de erros (opcional)
-const handleApiError = (error) => {
-  if (error.statusCode === 422) return 'Dados inválidos. Verifique os campos:'
-  if (error.statusCode === 401) return 'Acesso não autorizado.'
-  return 'Erro ao processar solicitação. Tente novamente.'
-}
-
 // Método para buscar os dados do funcionário
 const show = async (id) => {
   try {
@@ -348,6 +340,10 @@ const show = async (id) => {
   }
 }
 
+
+import { useApiErrorHandler } from '~/composables/useApiErrorHandler';
+
+const { handleError, errorsApi } = useApiErrorHandler();
 
 const create = async (form) => {
   isLoading.value = true
@@ -368,15 +364,10 @@ const create = async (form) => {
 
   } catch (error) {
 
-    let message = handleApiError(error)
     if (error.data?.errors) {
-      message += `\n\n`
-      Object.entries(error.data.errors).forEach(([field, messages]) => {
-        message += `${field}: ${messages.join(', ')}\n`
-        errors[field] = messages
-      })
+      handleError(error, 'Erro ao cadastrar funcionário!');
     }
-    notify('Erro ao cadastrar! ' + message, 'error', 5000)
+    // notify('Erro ao cadastrar! ' + message, 'error', 5000)
 
   } finally {
     isLoading.value = false
@@ -400,16 +391,15 @@ const update = async (form) => {
 
   } catch (error) {
 
-    let message = handleApiError(error)
-    // console.error('Erro ao alterar registro:', error.statusCode)
-    message = handleApiError(error)
     if (error.data?.errors) {
       message += `\n\n`
       Object.entries(error.data.errors).forEach(([field, messages]) => {
         message += `${field}: ${messages.join(', ')}\n`
         errors[field] = messages
       })
-      notify('Erro ao alterar registro! ' + message, 'error', 5000)
+      handleError(error, 'Erro ao cadastrar funcionário!');
+
+      // notify('Erro ao alterar registro! ' + message, 'error', 5000)
     }
   }
 }
