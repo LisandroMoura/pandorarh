@@ -30,6 +30,20 @@
           <p class="text-sm text-gray-500">{{ descricao }}</p>
         </div>
 
+        <!-- ID -->
+        <fieldset class="border p-4 rounded-lg">
+          <legend class="text-sm font-medium text-black-600 px-2">Colaborador</legend>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-medium text-gray-600 mb-1">Código</label>
+              <input type="text" v-model="form.id"
+                class="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                :class="{ 'border-red-500': errors.id }" disabled>
+              <p v-if="errors.id" class="text-red-500 text-xs mt-1">{{ errors.id }}</p>
+            </div>
+          </div>
+        </fieldset>
+
         <!--Identificação-->
         <fieldset class="border p-4 rounded-lg">
           <legend class="text-sm font-medium text-black-600 px-2">Identificação</legend>
@@ -212,7 +226,6 @@
     </div>
   </div>
 </template>
-
 
 <script setup>
 import { ref, reactive, onMounted } from 'vue'
@@ -398,8 +411,6 @@ const update = async (form) => {
         errors[field] = messages
       })
       handleError(error, 'Erro ao cadastrar funcionário!');
-
-      // notify('Erro ao alterar registro! ' + message, 'error', 5000)
     }
   }
 }

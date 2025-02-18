@@ -26,6 +26,7 @@
 </template>
 
 <script setup>
+
 defineProps({
   id: Number,
   nome: String,
@@ -58,16 +59,10 @@ const destroy = async (id) => {
   try {
 
     const response = await authFetch(`http://localhost:8000/api/funcionarios/${id}`, {
-      method: 'DELETE',      
+      method: 'DELETE',
     });
 
     successMessage.value = 'Funcionário deletado com sucesso!'
-    
-    
-    // if (!response.ok) {
-      // successMessage.value = 'Erro ao excluir funcionário'
-      // throw new Error('Erro ao excluir funcionário');
-    // }
 
     refreshNuxtData('funcionarios') // Usando a mesma chave usada no useFetch
 

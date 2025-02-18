@@ -1,5 +1,7 @@
 <template>
   <div>
+    <!-- custom componente responsável pela visualização 
+     das mensagens da aplicação -->
     <div v-if="showMessage">
       <div v-if="successMessage"
         class="mb-10 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative">
@@ -22,6 +24,9 @@
 </template>
 
 <script setup>
+// showMessage useState de controle para visualização das mensagens
+// PS: O controle do tempo de visualização do aviso (mensagens)
+//     é realizado o composable/useNotify
 const showMessage = useState('showMessage', () => false);
 const successMessage = useState('successMessage', () => '');
 const errorMessage = useState('errorMessage', () => '');

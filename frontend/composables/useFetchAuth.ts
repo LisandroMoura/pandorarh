@@ -1,20 +1,28 @@
 import { $fetch } from 'ofetch'
-
+/**
+ * Hook para fazer requisições autenticadas, 
+ * Fazendo o login na API e utilizando o token armazenado no localStorage
+ */
 export const useFetchAuth = () => {
-  // Método de login
+  /**
+   * Metodo responsavel por fazer o login na API, obtento o token 
+   * e armazenando no localStorage
+   */
   const authLogin = async () => {
+    const config = useRuntimeConfig();
     try {
-      const response = await $fetch('http://localhost:8000/api/login', {
+      const response = await $fetch(`${config.public.apiBaseUrl}/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         body: {
-          email: 'lisandro@pandora.io',
-          password: 'password'
+          email: config.public.apiUser,
+          password: config.public.apiPassword
         }
       })
 
+      // obtendo o token e armazenando no localStorage
       if (response.token) {
         localStorage.setItem('pandoraToken', response.token) // Armazena o token no localStorage
         console.log('Login bem-sucedido! Token:', response.token)
@@ -29,10 +37,13 @@ export const useFetchAuth = () => {
     }
   }
 
-  // Método de requisição autenticada
+  /**
+   * Metodo que executa as requisições com autenticação
+   */
   const authFetch = async (url: string, options: any = {}) => {
     let token = localStorage.getItem('pandoraToken')
 
+    // Verifica se o token existe, caso não existir, vamos fazer o login no backend
     if (!token) {
       token = await authLogin() // Aguarda o login antes de continuar
       if (!token) throw new Error('Não foi possível obter o token')

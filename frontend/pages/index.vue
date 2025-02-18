@@ -25,7 +25,7 @@
 </script>
 
 <style>
-/* Opcional: Adicionar animação personalizada */
+/* Adicionar animação de scale nos botões de cadastro e de lista */
 .hover\:scale-105:hover {
   transform: scale(1.05);
 }
