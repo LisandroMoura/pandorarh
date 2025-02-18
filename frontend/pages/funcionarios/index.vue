@@ -23,52 +23,19 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
-// TODO: requisitar os dados do backend
 
-// const funcionarios = ref([])
-// const loading = ref(true)
-// const error = ref(null)
+const { authFetch } = useFetchAuth()
 
-// const funcionarios = ref([
-//   { id: 1, nome: "João da Silva", data_nascimento: "01/01/1990" },
-//   { id: 2, nome: "Maria Oliveira", data_nascimento: "05/07/1985" },
-//   { id: 3, nome: "Carlos Souza", data_nascimento: "20/11/1992" },
-//   { id: 4, nome: "Carlos Souza", data_nascimento: "20/11/1992" },
-//   { id: 5, nome: "Carlos Souza", data_nascimento: "20/11/1992" },
-//   { id: 6, nome: "Carlos Souza", data_nascimento: "20/11/1992" },
-// ])
-// const fetchFuncionarios = async () => {
-//   try {
-//     const response = await fetch('http://localhost:8000/api/funcionarios') // Ajuste a URL conforme necessário
-//     if (!response.ok) throw new Error('Erro ao carregar os funcionários')
+const { data: funcionarios } = await useAsyncData('funcionarios', async () => {
 
-//     const data = await response.json()
-//     if (data.ok) {
-//       funcionarios.value = data.funcionarios
-//     } else {
-//       throw new Error('Resposta inválida da API')
-//     }
-
-//   } catch (err) {
-//     error.value = err.message
-//   } finally {
-//     loading.value = false
-//   }
-// }
-
-// onMounted(fetchFuncionarios)
-
-const { data: funcionarios, pending, error } = await useAsyncData('funcionarios', async () => {
   try {
-    const response = await $fetch('http://localhost:8000/api/funcionarios', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      }
+    const response = await authFetch('http://localhost:8000/api/funcionarios', {
+      method: 'GET'
     })
 
-    // Processamento dos dados com tratamento de erros
+    // Aplicar o tratamento de valor do tipo date
+    // para apresentar a data de nascimento conforme 
+    // o protótipo do Desafio 
     return response.funcionarios.map(item => {
       return {
         ...item,
@@ -83,10 +50,6 @@ const { data: funcionarios, pending, error } = await useAsyncData('funcionarios'
     if (error.statusCode === 404) {
       throw createError({ statusCode: 404, statusMessage: 'Endpoint não encontrado' })
     }
-
-    // Mostrar notificação global
-    const { $toast } = useNuxtApp()
-    $toast.error('Falha ao carregar funcionários')
 
     // Retornar array vazio para evitar erros no template
     return []

@@ -44,6 +44,7 @@ import { useNuxtApp } from '#app'
 
 const destroy = async (id) => {
   const router = useRouter()
+  const { authFetch } = useFetchAuth()
 
   if (!confirm('Tem certeza que deseja excluir este item?')) {
     return
@@ -51,19 +52,13 @@ const destroy = async (id) => {
 
   try {
 
-    const response = await fetch(`http://localhost:8000/api/funcionarios/${id}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+    const response = await authFetch(`http://localhost:8000/api/funcionarios/${id}`, {
+      method: 'DELETE',      
     });
 
     if (!response.ok) {
       throw new Error('Erro ao excluir funcionário');
-
     }
-
-
 
     refreshNuxtData('funcionarios') // Usando a mesma chave usada no useFetch
 
