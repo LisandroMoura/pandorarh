@@ -15,10 +15,9 @@ class FuncionarioController extends Controller
      */
     public function index()
     {
-        //
         return response()->json([
             "ok" => true,
-            "funcionarios" => Funcionario::all()
+            "funcionarios" => Funcionario::orderBy('id', 'desc')->get()
         ], 200);
     }
 
@@ -27,12 +26,20 @@ class FuncionarioController extends Controller
      */
     public function store(Request $request)
     {
+
+
+        // informar a data de admissão.
+        $data = $request->all();
+        $data['data_admissao'] = now();
+        $data['status'] = 'Ativo';
+
         // validar os dados de inclusão de um funcionário
         $validator = Validator::make(
-            $request->all(),
+            $data,
             $this->storeRules(),
             $this->messages()
         );
+
 
         if ($validator->fails()) {
             return response()->json([
@@ -42,9 +49,9 @@ class FuncionarioController extends Controller
         }
 
         // psersistir os dados
-        $funcionario = Funcionario::create($request->all());
+        $funcionario = Funcionario::create($data);
 
-        // retornar os dados 
+        // retornar os dados
         return response()->json([
             "ok" => true,
             "funcionario" => $funcionario
@@ -67,7 +74,6 @@ class FuncionarioController extends Controller
      */
     public function update(Request $request, Funcionario $funcionario)
     {
-        //
         // //validar
         $validator = Validator::make(
             $request->all(),
@@ -86,7 +92,7 @@ class FuncionarioController extends Controller
         $funcionario->update($request->all());
 
 
-        // retornar os dados 
+        // retornar os dados
         return response()->json([
             "message" => "funcionário atualizado com sucesso",
             "funcionario" => $funcionario
