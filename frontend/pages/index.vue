@@ -1,32 +1,64 @@
 <template>
-  <!-- HomePage -->
-  <div class="w-full text-center pt-10 flex flex-col items-center justify-center bg-gray-50">
-    <div class="w-full px-2 flex flex-col items-center">
-      <div class="space-y-6 text-center">
+  <!-- Página de Lista de Colaboradores -->
+  <div class="w-full px-2">
+    <Breadcrumb currentPage="list" />
 
-        <!-- Botão Listar Funcionários -->
-        <NuxtLink to="/funcionarios"
-          class="block w-full max-w-xs bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition-all duration-200 transform hover:scale-105">
-          Listar Funcionários
-        </NuxtLink>
+    <!-- componente custom para exibir mensagens -->
+    <Message />
 
-        <!-- Botão Cadastrar Funcionário -->
-        <NuxtLink to="/funcionarios/cadastro"
-          class="block w-full max-w-xs bg-green-600 hover:bg-green-700 text-white font-medium py-3 px-6 rounded-lg transition-all duration-200 transform hover:scale-105">
-          Cadastrar Funcionário
-        </NuxtLink>
+    <div class="mx-auto p-4 bg-white rounded-lg shadow-md">
+      <!-- Cabeçalho -->
+      <div class="border-b pb-4 mb-6 ">
+        <div>
+          <h2 class="text-2xl font-bold text-gray-800 flex items-center gap-2">
+            Lista de Colaboradores</h2>
+        </div>
+        <p class="text-sm text-gray-500">Colaboradores cadastrados em nossa base de dados</p>
+      </div>
+
+      <!-- Itens da lista -->
+      <div class="grid grid-cols-1 gap-4">
+        <ListItem v-for="funcionario in funcionarios" :key="funcionario.id" :id="funcionario.id"
+          :nome="funcionario.nome" :data_nascimento="funcionario.data_nascimento" />
       </div>
     </div>
-
   </div>
 </template>
 
 <script setup>
+
+const { authFetch } = useFetchAuth()
+
+/**
+ * Metodo assíncrono para obter a lista de colaboradores
+ */
+const { data: funcionarios } = await useAsyncData('funcionarios', async () => {
+  try {
+    const response = await authFetch('http://localhost:8000/api/funcionarios', {
+      method: 'GET'
+    })
+
+    // Aplicar a data no formato brasileiro padrão UTC
+    // para apresentar a data de nascimento conforme o protótipo do Desafio 
+    return response.funcionarios.map(item => {
+      return {
+        ...item,
+        data_nascimento: new Intl.DateTimeFormat('pt-BR', { timeZone: 'UTC' }).format(new Date(item.data_nascimento))
+      }
+    })
+
+  } catch (error) {
+    console.error('Erro na requisição:', error)
+
+    // Tratamento personalizado para diferentes códigos de status
+    if (error.statusCode === 404) {
+      throw createError({ statusCode: 404, statusMessage: 'Endpoint não encontrado' })
+    }
+
+    // Retornar array vazio para evitar erros no template
+    return []
+  }
+})
 </script>
 
-<style>
-/* Adicionar animação de scale nos botões de cadastro e de lista */
-.hover\:scale-105:hover {
-  transform: scale(1.05);
-}
-</style>
+<style></style>

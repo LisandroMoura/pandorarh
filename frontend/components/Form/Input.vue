@@ -1,7 +1,8 @@
 <template>
   <div>
     <!-- Rótulo -->
-    <label class="block text-sm font-medium text-gray-600 mb-1" :class="{ 'text-red-600': required }">
+    <label class="block text-sm font-medium text-gray-600 mb-1">
+      <span v-if="required" class="text-red-600">*</span>
       {{ label }}
     </label>
 

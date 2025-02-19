@@ -37,23 +37,25 @@
 
         <!--Identificação: Nome e Apelido-->
         <FormFieldset title="Identificação">
-          <FormInput label="*Nome completo" type="text" v-model="form.nome" v-model:inputErro="errors.nome"
+          <FormInput label="Nome completo" type="text" v-model="form.nome" v-model:inputErro="errors.nome"
             :inputDisable="action === 'view'" :required="true" />
           <FormInput label="Apelido" type="text" v-model="form.apelido" :inputDisable="action === 'view'" />
         </FormFieldset>
 
         <!--informações de contato: Email e Telefone-->
         <FormFieldset title="Informações de contato">
-          <FormInput label="*Email" type="email" v-model="form.email" v-model:inputErro="errors.email"
+          <FormInput label="Email" type="email" v-model="form.email" v-model:inputErro="errors.email"
             :inputDisable="action === 'view'" :required="true" />
-          <FormInput label="Telefone" type="text" v-model="form.telefone" :inputDisable="action === 'view'" />
+          <FormCustomInputFormat format="phone" label="Telefone" type="text" v-model="form.telefone"
+            :inputDisable="action === 'view'" />
         </FormFieldset>
 
         <!--Documentos: Cpf e Rg-->
         <FormFieldset title="Documentos">
-          <FormInput label="*CPF" type="text" v-model="form.cpf" v-model:inputErro="errors.cpf"
+          <FormCustomInputFormat format="cpf" label="CPF" type="text" v-model="form.cpf" v-model:inputErro="errors.cpf"
             :inputDisable="action === 'view'" :required="true" />
-          <FormInput label="RG" type="text" v-model="form.rg" :inputDisable="action === 'view'" />
+          <FormCustomInputFormat format="rg" label="RG" type="text" v-model="form.rg"
+            :inputDisable="action === 'view'" />
         </FormFieldset>
 
         <!--Filiação: Nome do Pai e Nome da mãe-->
@@ -66,7 +68,7 @@
 
         <!--Nascimento: Data de Nascimento e Gênero-->
         <FormFieldset title="Nascimento">
-          <FormInput label="*Data de Nascimento" type="date" v-model="form.data_nascimento" :required="true"
+          <FormInput label="Data de Nascimento" type="date" v-model="form.data_nascimento" :required="true"
             v-model:inputErro="errors.data_nascimento" :inputDisable="action === 'view'" />
           <FormSelect label="Gênero(opcional)" type="text" v-model="form.genero" :options="opcoesGenero"
             :inputDisable="action === 'view'" />
@@ -82,10 +84,10 @@
         <!--Contratação Cargo e Salário-->
 
         <FormFieldset title="Endereçamento">
-          <FormSelect label="*Cargo" type="text" v-model="form.cargo_id" :options="opcoesCargo" :required="true"
+          <FormSelect label="Cargo" type="text" v-model="form.cargo_id" :options="opcoesCargo" :required="true"
             :inputDisable="action === 'view'" />
-          <FormCurrency label="*Salário" v-model="form.salario" :inputDisable="action === 'view'" :required="true"
-            v-model:inputErro="errors.salario" />
+          <FormCustomInputFormat format="currency" label="Salário" v-model="form.salario"
+            :inputDisable="action === 'view'" :required="true" v-model:inputErro="errors.salario" />
         </FormFieldset>
 
         <!-- CallActions -->
@@ -98,11 +100,11 @@
 
           <button type="button" @click="cancelar"
             class="px-6 py-2 text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-md transition-colors">
-            Cancelar
+            {{ props.action === 'view' ? 'Voltar' : 'Cancelar' }}
           </button>
 
           <button v-if="action !== 'view'" type="submit"
-            class="px-6 py-2 bg-blue-600 hover:bg-red-700 text-white rounded-md transition-colors">
+            class="px-6 py-2 bg-[#18de99] hover:bg-[#21223a] hover:text-white text-[#21223a] rounded-md transition-colors">
             {{ isLoading ? 'Carregando...' : 'Salvar' }}
           </button>
         </div>

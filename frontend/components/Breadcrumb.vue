@@ -2,13 +2,13 @@
   <div>
     <!--componente custom para exibir os links de navegação: Listar e Novo-->
     <div
-      class="w-full flex flex-col md:flex-row justify-between items-start md:items-center px-4 md:px-8 gap-4 pt-4 mb-10">
-      <h1 class="text-3xl font-bold text-gray-800 w-full md:w-auto">Funcionários da PandoraRH</h1>
+      class="w-full flex flex-col md:flex-row justify-between items-start md:items-center px-4 md:px-1 gap-4 pt-4 mb-10">
+      <h1 class="text-3xl font-bold text-[#21223a] w-full md:w-auto">Funcionários da PandoraRH</h1>
 
       <nav class="flex gap-4 justify-start md:justify-center w-full md:w-auto">
         <a href="#" @click.prevent="navegarParaLista"
           class="flex items-center gap-2 text-gray-900 hover:text-gray-600 px-4 py-2 transition-colors"
-          :class="{ 'border-b-2 border-red-500 font-bold text-black': currentPage === 'list' }">
+          :class="{ 'border-b-2 border-[#18de99] font-bold text-black': currentPage === 'list' }">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
             stroke="currentColor" class="size-6">
             <path stroke-linecap="round" stroke-linejoin="round"
@@ -18,7 +18,7 @@
         </a>
         <a href="#" @click.prevent="navegarParaCadastro"
           class="flex items-center gap-2 text-gray-900 hover:text-gray-600 px-4 py-2 transition-colors"
-          :class="{ 'border-b-2 border-red-500 font-bold text-black': currentPage === 'form' }">
+          :class="{ 'border-b-2 border-[#18de99] font-bold text-black': currentPage === 'form' }">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
             stroke="currentColor" class="size-6">
             <path stroke-linecap="round" stroke-linejoin="round"
