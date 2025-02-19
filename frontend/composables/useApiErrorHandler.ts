@@ -16,7 +16,7 @@ export const useApiErrorHandler = () => {
   const { notify } = useNotify();
   const errorsApi = useState<Record<string, string[]>>('errors', () => ({}));
 
-  const handleError = (error: ApiError, defaultMessage: string = 'Erro ao processar a requisição!') => {
+  const handleError = (error: ApiError, defaultMessage: string = 'Erro ao processar a requisição!', errors: Record<string, string[]> = {}) => {
     let message = error.data?.message || error.message || defaultMessage;
 
     // Zerar os erros anteriores
@@ -31,6 +31,8 @@ export const useApiErrorHandler = () => {
       Object.entries(error.data.errors).forEach(([field, messages]) => {
         message += `${field}: ${messages.join(', ')}\n`;
         errorsApi.value[field] = messages;
+        // adcionar os erros da requisição aos elementos (inputs) do formulário/validação
+        errors[field] = messages;
       });
     }
 
