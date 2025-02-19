@@ -30,160 +30,69 @@
           <p class="text-sm text-gray-500">{{ descricao }}</p>
         </div>
 
-        <!-- ID -->
-        <fieldset class="border p-4 rounded-lg">
-          <legend class="text-sm font-medium text-black-600 px-2">Colaborador</legend>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <label class="block text-sm font-medium text-gray-600 mb-1">Código</label>
-              <input type="text" v-model="form.id"
-                class="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-red-500 focus:border-red-500"
-                :class="{ 'border-red-500': errors.id }" disabled>
-              <p v-if="errors.id" class="text-red-500 text-xs mt-1">{{ errors.id }}</p>
-            </div>
-          </div>
-        </fieldset>
+        <!-- Colaborador:id-->
+        <FormFieldset title="Colaborador">
+          <FormInput label="Código" type="text" v-model="form.id" :disabled="action === 'view'" :inputDisable="true" />
+        </FormFieldset>
 
-        <!--Identificação-->
-        <fieldset class="border p-4 rounded-lg">
-          <legend class="text-sm font-medium text-black-600 px-2">Identificação</legend>
+        <!--Identificação: Nome e Apelido-->
+        <FormFieldset title="Identificação">
+          <FormInput label="*Nome completo" type="text" v-model="form.nome" :inputErro="errors.nome"
+            :inputDisable="action === 'view'" :required="true" />
+          <FormInput label="Apelido" type="text" v-model="form.apelido" :inputDisable="action === 'view'" />
+        </FormFieldset>
 
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <!-- Nome -->
-            <div>
-              <label class="block text-sm font-medium text-red-600 mb-1">* Nome Completo</label>
-              <input type="text" v-model="form.nome" :disabled="action === 'view'"
-                class="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-red-500 focus:border-red-500"
-                :class="{ 'border-red-500': errors.nome }">
-              <p v-if="errors.nome" class="text-red-500 text-xs mt-1">{{ errors.nome }}</p>
-            </div>
+        <!--informações de contato: Email e Telefone-->
+        <FormFieldset title="Informações de contato">
+          <FormInput label="*Email" type="email" v-model="form.email" :inputErro="errors.email"
+            :inputDisable="action === 'view'" :required="true" />
+          <FormInput label="Telefone" type="text" v-model="form.telefone" :inputDisable="action === 'view'" />
+        </FormFieldset>
 
-            <!-- Apelido -->
-            <div>
-              <label class="block text-sm font-medium text-gray-600 mb-1">Apelido(opcional)</label>
-              <input type="text" v-model="form.apelido" :disabled="action === 'view'"
-                class="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-red-500 focus:border-red-500">
-            </div>
-          </div>
-        </fieldset>
+        <!--Documentos: Cpf e Rg-->
+        <FormFieldset title="Documentos">
+          <FormInput label="*CPF" type="text" v-model="form.cpf" :inputErro="errors.cpf"
+            :inputDisable="action === 'view'" :required="true" />
+          <FormInput label="RG" type="text" v-model="form.rg" :inputDisable="action === 'view'" />
+        </FormFieldset>
 
-        <!--informações de contato-->
-        <fieldset class="border p-4 rounded-lg">
-          <legend class="text-sm font-medium text-black-600 px-2">Informações de contato</legend>
+        <!--Filiação: Nome do Pai e Nome da mãe-->
+        <FormFieldset title="Filiação">
+          <FormInput label="Nome do Pai(opcional)" type="text" v-model="form.nome_pai"
+            :inputDisable="action === 'view'" />
+          <FormInput label="Nome da Mãe(opcional)" type="text" v-model="form.nome_mae"
+            :inputDisable="action === 'view'" />
+        </FormFieldset>
 
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <!-- email -->
-            <div>
-              <label class="block text-sm font-medium text-red-600 mb-1">*Email</label>
-              <input type="email" v-model="form.email" :disabled="action === 'view'"
-                class="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-red-500 focus:border-red-500"
-                :class="{ 'border-red-500': errors.email }">
-              <p v-if="errors.email" class="text-red-500 text-xs mt-1">{{ errors.email }}</p>
-            </div>
+        <!--Nascimento: Data de Nascimento e Gênero-->
+        <FormFieldset title="Nascimento">
+          <FormInput label="*Data de Nascimento" type="date" v-model="form.data_nascimento" :required="true"
+            :inputErro="errors.data_nascimento" :inputDisable="action === 'view'" />
+          <FormSelect label="Gênero(opcional)" type="text" v-model="form.genero" :options="opcoesGenero"
+            :inputDisable="action === 'view'" />
+        </FormFieldset>
 
-            <!-- Telefone -->
-            <div>
-              <label class="block text-sm font-medium text-gray-600 mb-1">Telefone(opcional)</label>
-              <input type="text" v-model="form.telefone" :disabled="action === 'view'"
-                class="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-red-500 focus:border-red-500">
-            </div>
-          </div>
-        </fieldset>
+        <!--Endereçamento: Cep e Endereço-->
+        <FormFieldset title="Endereçamento">
+          <FormInput label="Cep(opcional)" type="text" v-model="form.cep" :inputDisable="action === 'view'" />
+          <FormInput label="Logadouro(opcional)" type="text" v-model="form.endereco"
+            :inputDisable="action === 'view'" />
+        </FormFieldset>
 
-        <!--Documentos-->
-        <fieldset class="border p-4 rounded-lg">
-          <legend class="text-sm font-medium text-black-600 px-2">Documentos</legend>
+        <!--Contratação Cargo e Salário-->
 
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <!-- Cpf -->
-            <div>
-              <label class="block text-sm font-medium text-red-600 mb-1">* Cpf</label>
-              <input type="text" v-model="form.cpf" :disabled="action === 'view'"
-                class="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-red-500 focus:border-red-500"
-                :class="{ 'border-red-500': errors.cpf }">
-              <p v-if="errors.cpf" class="text-red-500 text-xs mt-1">{{ errors.cpf }}</p>
-            </div>
-            <!-- RG -->
-            <div>
-              <label class="block text-sm font-medium text-gray-600 mb-1">Rg(opcional)</label>
-              <input type="text" v-model="form.rg" :disabled="action === 'view'"
-                class="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-red-500 focus:border-red-500">
-            </div>
-          </div>
-        </fieldset>
+        <FormFieldset title="Endereçamento">
+          <FormSelect label="*Cargo" type="text" v-model="form.cargo_id" :options="opcoesCargo" :required="true"
+            :inputDisable="action === 'view'" />
+          <FormInput label="*Salário" type="number" v-model="form.salario" :inputDisable="action === 'view'"
+            :required="true" />
+        </FormFieldset>
 
-        <!--Filiação-->
-        <fieldset class="border p-4 rounded-lg">
-          <legend class="text-sm font-medium text-black-600 px-2">Filiação</legend>
 
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <!-- Nome do Pai -->
-            <div>
-              <label class="block text-sm font-medium text-gray-600 mb-1">Nome do Pai(opcional)</label>
-              <input type="text" v-model="form.nome_pai" :disabled="action === 'view'"
-                class="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-red-500 focus:border-red-500">
-            </div>
-            <!-- Nome da Mãe -->
-            <div>
-              <label class="block text-sm font-medium text-gray-600 mb-1">Nome da Mãe(opcional)</label>
-              <input type="text" v-model="form.nome_mae" :disabled="action === 'view'"
-                class="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-red-500 focus:border-red-500">
-            </div>
-          </div>
-        </fieldset>
-
-        <!--Nascimento-->
-        <fieldset class="border p-4 rounded-lg">
-          <legend class="text-sm font-medium text-black-600 px-2">Nascimento</legend>
-
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <!-- Data de Nascimento -->
-            <div>
-              <label class="block text-sm font-medium text-red-600 mb-1">Data de Nascimento</label>
-              <input type="date" v-model="form.data_nascimento" :disabled="action === 'view'"
-                class="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-red-500 focus:border-red-500"
-                :class="{ 'border-red-500': errors.data_nascimento }">
-              <p v-if="errors.data_nascimento" class="text-red-500 text-xs mt-1">{{ errors.data_nascimento }}</p>
-            </div>
-            <!-- Gênero -->
-            <div>
-              <label class="block text-sm font-medium text-gray-600 mb-1">Gênero(opcional)</label>
-              <select v-model="form.genero" :disabled="action === 'view'"
-                class="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-red-500 focus:border-red-500">
-                <option value="Não informado" selected>Não informado</option>
-                <option value="Masculino">Masculino</option>
-                <option value="Feminino">Feminino</option>
-              </select>
-            </div>
-          </div>
-        </fieldset>
-
-        <!--Endereçamento-->
-        <fieldset class="border p-4 rounded-lg">
-          <legend class="text-sm font-medium text-black-600 px-2">Endereçamento</legend>
-
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <!-- Cep -->
-            <div>
-              <label class="block text-sm font-medium text-black-600 mb-1">Cep(opcional)</label>
-              <input type="text" v-model="form.cep" :disabled="action === 'view'"
-                class="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-red-500 focus:border-red-500">
-            </div>
-            <!-- Endereço -->
-            <div>
-              <label class="block text-sm font-medium text-black-600 mb-1">Logadouro(opcional)</label>
-              <input type="text" v-model="form.endereco" :disabled="action === 'view'"
-                class="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-red-500 focus:border-red-500">
-            </div>
-          </div>
-        </fieldset>
-
-        <!--Contratação-->
-        <fieldset class="border p-4 rounded-lg">
+        <!-- <fieldset class="border p-4 rounded-lg">
           <legend class="text-sm font-medium text-black-600 px-2">Contratação</legend>
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <!-- Cargo -->
             <div>
               <label class="block text-sm font-medium text-red-600 mb-1">*Cargo</label>
               <select v-model="form.cargo" :disabled="action === 'view'"
@@ -193,7 +102,6 @@
                 <option value="3">Gerente de Vendas</option>
               </select>
             </div>
-            <!-- Salário -->
             <div>
               <label class="block text-sm font-medium text-red-600 mb-1">*Salário</label>
               <input type="number" v-model="form.salario" :disabled="action === 'view'"
@@ -202,7 +110,7 @@
               <p v-if="errors.salario" class="text-red-500 text-xs mt-1">{{ errors.salario }}</p>
             </div>
           </div>
-        </fieldset>
+        </fieldset> -->
 
         <!-- CallActions -->
         <div class="flex justify-end gap-4 mt-8">
@@ -235,13 +143,26 @@ const isLoading = ref(false)
 const errors = reactive({});
 
 import { useNotify } from '~/composables/useNotify';
-const { notify, successMessage, errorMessage } = useNotify();
+const { notify, errorMessage } = useNotify();
 
 const props = defineProps({
   titulo: { type: String, required: true },
   descricao: { type: String, required: true },
   action: { type: String, required: true }
 })
+
+const opcoesCargo = [
+  { label: "Programador", value: "1", default: true },
+  { label: "Programador FrontEnd", value: "2" },
+  { label: "CEO", value: "4" },
+  { label: "Gerente de Suporte", value: "5" },
+];
+
+const opcoesGenero = [
+  { label: "Não informado", value: "Não informado" },
+  { label: "Masculino", value: "Masculino" },
+  { label: "Feminino", value: "Feminino" },
+];
 
 // Definindo o estado reativo usando `reactive`
 const form = reactive({
@@ -256,7 +177,7 @@ const form = reactive({
   genero: 'Não informado',
   cep: '',
   endereco: '',
-  cargo: 1,
+  cargo_id: 1,
   salario: 0,
   email: "",
   telefone: ""
@@ -322,7 +243,7 @@ const limpar = () => {
       genero: 'Não informado',
       cep: '',
       endereco: '',
-      cargo: 1,
+      cargo_id: 1,
       salario: 0.01,
       email: "",
       telefone: ""
