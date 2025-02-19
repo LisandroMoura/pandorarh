@@ -1,6 +1,6 @@
 # Sobre o Desafio:
 
-| Um resumo do que foi desenvovido neste teste
+| Um resumo do que foi desenvolvido neste desafio
 
 ### Backend
 
