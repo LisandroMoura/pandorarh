@@ -17,8 +17,8 @@ trait FuncionarioRules
             'data_nascimento' => 'required',
             'data_admissao' => 'required',
             'salario' => 'required|numeric',
-            'pis' => 'unique:funcionarios,pis',
-            'ctps' => 'unique:funcionarios,ctps',
+            // 'pis' => 'unique:funcionarios,pis',
+            // 'ctps' => 'unique:funcionarios,ctps',
             'status' => ['required', new StatusValidate],
         ];
     }
@@ -32,8 +32,8 @@ trait FuncionarioRules
             'data_admissao' => 'nullable|date',
             'salario' => 'numeric',
             'cpf' => ['unique:funcionarios,cpf,' . $funcionario->id, new CpfValidate()],
-            'pis' => 'unique:funcionarios,pis,' . $funcionario->id,
-            'ctps' => 'unique:funcionarios,ctps,' . $funcionario->id,
+            //'pis' => 'unique:funcionarios,pis,' . $funcionario->id,
+            //'ctps' => 'unique:funcionarios,ctps,' . $funcionario->id,
             'status' => [new StatusValidate],
         ];
     }
