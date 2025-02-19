@@ -102,7 +102,7 @@
           </button>
 
           <button v-if="action !== 'view'" type="submit"
-            class="px-6 py-2 bg-blue-600 hover:bg-red-700 text-white rounded-md transition-colors">
+            class="px-6 py-2 bg-[#18de99] hover:bg-[#21223a] hover:text-white text-[#21223a] rounded-md transition-colors">
             {{ isLoading ? 'Carregando...' : 'Salvar' }}
           </button>
         </div>

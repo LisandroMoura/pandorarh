@@ -6,7 +6,7 @@
         <img src="~/assets/logo.png" alt="Logo" class="w-12 h-12" />
       </NuxtLink>
       <NuxtLink to="/">
-        <p class="text-3xl font-bold">Pandora RH</p>
+        <p class="text-3xl font-bold text-[#21223a]">Pandora RH</p>
       </NuxtLink>
     </header>
     <main class="w-full h-full pt-4 px-8">
@@ -15,5 +15,5 @@
   </div>
 </template>
 
-<script setup>  
+<script setup>
 </script>
