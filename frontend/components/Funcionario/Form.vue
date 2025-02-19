@@ -144,10 +144,10 @@ const errors = reactive({});
 
 // opções default para select de cargo
 const opcoesCargo = [
-  { label: "Programador", value: "1", default: true },
-  { label: "Programador FrontEnd", value: "2" },
-  { label: "CEO", value: "4" },
-  { label: "Gerente de Suporte", value: "5" },
+  { label: "Desenvolvedor PHP", value: "1", default: true },
+  { label: "Front-end", value: "2" },
+  { label: "Designer", value: "3" },
+  { label: "Gerente de Projetos", value: "4" },
 ];
 
 // opções defauto para select de gênero
