@@ -46,14 +46,16 @@
         <FormFieldset title="Informações de contato">
           <FormInput label="Email" type="email" v-model="form.email" v-model:inputErro="errors.email"
             :inputDisable="action === 'view'" :required="true" />
-          <FormInput label="Telefone" type="text" v-model="form.telefone" :inputDisable="action === 'view'" />
+          <FormCustomInputFormat format="phone" label="Telefone" type="text" v-model="form.telefone"
+            :inputDisable="action === 'view'" />
         </FormFieldset>
 
         <!--Documentos: Cpf e Rg-->
         <FormFieldset title="Documentos">
-          <FormInput label="CPF" type="text" v-model="form.cpf" v-model:inputErro="errors.cpf"
+          <FormCustomInputFormat format="cpf" label="CPF" type="text" v-model="form.cpf" v-model:inputErro="errors.cpf"
             :inputDisable="action === 'view'" :required="true" />
-          <FormInput label="RG" type="text" v-model="form.rg" :inputDisable="action === 'view'" />
+          <FormCustomInputFormat format="rg" label="RG" type="text" v-model="form.rg"
+            :inputDisable="action === 'view'" />
         </FormFieldset>
 
         <!--Filiação: Nome do Pai e Nome da mãe-->
@@ -84,8 +86,8 @@
         <FormFieldset title="Endereçamento">
           <FormSelect label="Cargo" type="text" v-model="form.cargo_id" :options="opcoesCargo" :required="true"
             :inputDisable="action === 'view'" />
-          <FormCurrency label="Salário" v-model="form.salario" :inputDisable="action === 'view'" :required="true"
-            v-model:inputErro="errors.salario" />
+          <FormCustomInputFormat format="currency" label="Salário" v-model="form.salario"
+            :inputDisable="action === 'view'" :required="true" v-model:inputErro="errors.salario" />
         </FormFieldset>
 
         <!-- CallActions -->
