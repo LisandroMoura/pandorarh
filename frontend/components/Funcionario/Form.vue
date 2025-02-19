@@ -37,21 +37,21 @@
 
         <!--Identificação: Nome e Apelido-->
         <FormFieldset title="Identificação">
-          <FormInput label="*Nome completo" type="text" v-model="form.nome" v-model:inputErro="errors.nome"
+          <FormInput label="Nome completo" type="text" v-model="form.nome" v-model:inputErro="errors.nome"
             :inputDisable="action === 'view'" :required="true" />
           <FormInput label="Apelido" type="text" v-model="form.apelido" :inputDisable="action === 'view'" />
         </FormFieldset>
 
         <!--informações de contato: Email e Telefone-->
         <FormFieldset title="Informações de contato">
-          <FormInput label="*Email" type="email" v-model="form.email" v-model:inputErro="errors.email"
+          <FormInput label="Email" type="email" v-model="form.email" v-model:inputErro="errors.email"
             :inputDisable="action === 'view'" :required="true" />
           <FormInput label="Telefone" type="text" v-model="form.telefone" :inputDisable="action === 'view'" />
         </FormFieldset>
 
         <!--Documentos: Cpf e Rg-->
         <FormFieldset title="Documentos">
-          <FormInput label="*CPF" type="text" v-model="form.cpf" v-model:inputErro="errors.cpf"
+          <FormInput label="CPF" type="text" v-model="form.cpf" v-model:inputErro="errors.cpf"
             :inputDisable="action === 'view'" :required="true" />
           <FormInput label="RG" type="text" v-model="form.rg" :inputDisable="action === 'view'" />
         </FormFieldset>
@@ -66,7 +66,7 @@
 
         <!--Nascimento: Data de Nascimento e Gênero-->
         <FormFieldset title="Nascimento">
-          <FormInput label="*Data de Nascimento" type="date" v-model="form.data_nascimento" :required="true"
+          <FormInput label="Data de Nascimento" type="date" v-model="form.data_nascimento" :required="true"
             v-model:inputErro="errors.data_nascimento" :inputDisable="action === 'view'" />
           <FormSelect label="Gênero(opcional)" type="text" v-model="form.genero" :options="opcoesGenero"
             :inputDisable="action === 'view'" />
@@ -82,9 +82,9 @@
         <!--Contratação Cargo e Salário-->
 
         <FormFieldset title="Endereçamento">
-          <FormSelect label="*Cargo" type="text" v-model="form.cargo_id" :options="opcoesCargo" :required="true"
+          <FormSelect label="Cargo" type="text" v-model="form.cargo_id" :options="opcoesCargo" :required="true"
             :inputDisable="action === 'view'" />
-          <FormCurrency label="*Salário" v-model="form.salario" :inputDisable="action === 'view'" :required="true"
+          <FormCurrency label="Salário" v-model="form.salario" :inputDisable="action === 'view'" :required="true"
             v-model:inputErro="errors.salario" />
         </FormFieldset>
 
