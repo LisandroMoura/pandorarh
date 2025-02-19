@@ -26,8 +26,6 @@ class FuncionarioController extends Controller
      */
     public function store(Request $request)
     {
-
-
         // informar a data de admissão.
         $data = $request->all();
         $data['data_admissao'] = now();
@@ -39,7 +37,6 @@ class FuncionarioController extends Controller
             $this->storeRules(),
             $this->messages()
         );
-
 
         if ($validator->fails()) {
             return response()->json([

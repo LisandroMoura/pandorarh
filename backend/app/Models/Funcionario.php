@@ -25,23 +25,25 @@ class Funcionario extends Model
         'telefone',
         'email',
         'endereco',
-        'cep',
-        'cidade',
-        'estado',
-        'cargo_id',
-        'departamento',
-        'tipo_contrato',
-        'carga_horaria_semanal',
         'data_admissao',
-        'status',
         'salario',
-        'banco',
-        'agencia',
-        'conta',
-        'pis',
-        'ctps',
-        'data_rescisao',
-        'motivo_rescisao',
+        'status',
+
+        // TODO: campos que podem ser adicionados futuramente
+        // 'cep',
+        // 'cidade',
+        // 'estado',
+        // 'cargo_id',
+        // 'departamento',
+        // 'tipo_contrato',
+        // 'carga_horaria_semanal',
+        // 'banco',
+        // 'agencia',
+        // 'conta',
+        // 'pis',
+        // 'ctps',
+        // 'data_rescisao',
+        // 'motivo_rescisao',
     ];
 
     protected $hidden = [];
@@ -49,7 +51,6 @@ class Funcionario extends Model
     protected $casts = [
         'data_nascimento' => 'date',
         'data_admissao' => 'date',
-        'data_rescisao' => 'date',
         'salario' => 'decimal:2',
     ];
 

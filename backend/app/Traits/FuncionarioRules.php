@@ -32,9 +32,9 @@ trait FuncionarioRules
             'data_admissao' => 'nullable|date',
             'salario' => 'numeric',
             'cpf' => ['unique:funcionarios,cpf,' . $funcionario->id, new CpfValidate()],
+            'status' => [new StatusValidate],
             //'pis' => 'unique:funcionarios,pis,' . $funcionario->id,
             //'ctps' => 'unique:funcionarios,ctps,' . $funcionario->id,
-            'status' => [new StatusValidate],
         ];
     }
 
@@ -50,10 +50,10 @@ trait FuncionarioRules
             'data_admissao.required' => "A data de admissão é obrigatória",
             'salario.required' => "O salário deve ser informado",
             'salario.numeric' => "O salário deve ter um valor numérico",
-            'ctps.unique' => 'Ctps já cadastrada',
-            'pis.unique' => 'Pis já cadastrado',
             'cpf.unique' => 'Cpf já cadastrado',
             'cpf.required' => 'Cpf deve ser informado',
+            // 'pis.unique' => 'Pis já cadastrado',
+            // 'ctps.unique' => 'Ctps já cadastrada',
         ];
     }
 }
