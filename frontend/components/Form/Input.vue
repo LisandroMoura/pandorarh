@@ -1,18 +1,25 @@
 <template>
   <div>
-    <!-- Componente custom de formulário Input -->
-    <label class="block text-sm font-medium text-gray-600 mb-1" :class="[required ? 'text-red-600' : '']">{{ label
-      }}</label>
-    <input :type="type" :value="modelValue" @input="$emit('update:modelValue', $event.target.value)"
-      :disabled="inputDisable" class="w-full px-3 py-2 border rounded-md focus:border-red-500"
-      :class="[inputErro ? 'border-red-500' : '', inputCustomClass]">
-    <p v-if="inputErro" class="text-red-500 text-xs mt-1">{{ inputErro }}</p>
+    <!-- Rótulo -->
+    <label class="block text-sm font-medium text-gray-600 mb-1" :class="{ 'text-red-600': required }">
+      {{ label }}
+    </label>
+
+    <!-- Campo de entrada -->
+    <input :type="type" :value="modelValue" @input="handleInput" :disabled="inputDisable"
+      class="w-full px-3 py-2 border rounded-md focus:border-red-500"
+      :class="{ 'border-red-500': localErro, [inputCustomClass]: inputCustomClass }">
+
+    <!-- Mensagem de erro -->
+    <p v-if="localErro" class="text-red-500 text-xs mt-1">{{ localErro }}</p>
   </div>
 </template>
 
 <script setup lang="ts">
-// definição de props
-defineProps<{
+import { ref, watch } from "vue";
+
+// Definição de props
+const props = defineProps<{
   label: string;
   type: string;
   required: boolean;
@@ -21,6 +28,26 @@ defineProps<{
   inputDisable?: boolean;
   inputCustomClass?: string;
 }>();
-defineEmits(["update:modelValue"]);
+
+const emit = defineEmits(["update:modelValue", "update:inputErro"]);
+
+// Criando um estado local para o erro, para garantir reatividade
+const localErro = ref(props.inputErro || "");
+
+// Assistindo mudanças na prop inputErro para manter sincronização
+watch(() => props.inputErro, (newErro) => {
+  localErro.value = newErro || "";
+});
+
+// Função chamada quando o usuário digita no campo
+const handleInput = (event: Event) => {
+  const target = event.target as HTMLInputElement;
+  emit("update:modelValue", target.value);
+
+  // Resetando o erro ao digitar
+  if (localErro.value) {
+    localErro.value = "";
+    emit("update:inputErro", "");
+  }
+};
 </script>
-<style></style>
