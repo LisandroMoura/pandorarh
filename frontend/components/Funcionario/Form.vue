@@ -98,7 +98,7 @@
 
           <button type="button" @click="cancelar"
             class="px-6 py-2 text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-md transition-colors">
-            Cancelar
+            {{ props.action === 'view' ? 'Voltar' : 'Cancelar' }}
           </button>
 
           <button v-if="action !== 'view'" type="submit"
