@@ -133,6 +133,9 @@ const { notify, errorMessage } = useNotify();
 // injeção do composable responsável por tratar os erros da api
 const { handleError } = useApiErrorHandler();
 
+// importanto as variáveis de ambiente do config
+const config = useRuntimeConfig();
+
 // constante para controle de carregamento
 const isLoading = ref(false)
 
@@ -266,8 +269,6 @@ const limpar = () => {
  */
 const show = async (id) => {
   try {
-    // importanto as variáveis de ambiente do config
-    const config = useRuntimeConfig();
 
     const response = await authFetch(`${config.public.apiBaseUrl}/funcionarios/${id}`, {
       method: 'GET'
@@ -330,6 +331,7 @@ const create = async (form) => {
 const update = async (form) => {
 
   try {
+
     // chama o endpoint de edição usando o composable de requisições autenticadas 
     const response = await authFetch(`${config.public.apiBaseUrl}/funcionarios/${form.id}`, {
       method: 'PUT',
