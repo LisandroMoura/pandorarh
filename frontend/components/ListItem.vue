@@ -36,7 +36,7 @@ defineProps({
 }
 );
 
-// injeção do composable responsável por noficar as mensagens ao usuario
+// injeção do composable responsável por notificar as mensagens ao usuario
 import { useNotify } from '~/composables/useNotify';
 const { notify } = useNotify();
 
@@ -72,10 +72,11 @@ const destroy = async (id) => {
   }
 
   try {
+
     // importanto as variáveis de ambiente do config
     const config = useRuntimeConfig();
 
-    // chamar a rota de exclusão
+    // chamar o endpoint de exclusão
     const response = await authFetch(`${config.public.apiBaseUrl}/funcionarios/${id}`, {
       method: 'DELETE',
     });

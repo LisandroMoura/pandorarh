@@ -88,39 +88,15 @@
             :required="true" />
         </FormFieldset>
 
-
-        <!-- <fieldset class="border p-4 rounded-lg">
-          <legend class="text-sm font-medium text-black-600 px-2">Contratação</legend>
-
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <label class="block text-sm font-medium text-red-600 mb-1">*Cargo</label>
-              <select v-model="form.cargo" :disabled="action === 'view'"
-                class="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-red-500 focus:border-red-500">
-                <option value="1" selected>Programador</option>
-                <option value="2">Analista</option>
-                <option value="3">Gerente de Vendas</option>
-              </select>
-            </div>
-            <div>
-              <label class="block text-sm font-medium text-red-600 mb-1">*Salário</label>
-              <input type="number" v-model="form.salario" :disabled="action === 'view'"
-                class="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-red-500 focus:border-red-500"
-                :class="{ 'border-red-500': errors.salario }">
-              <p v-if="errors.salario" class="text-red-500 text-xs mt-1">{{ errors.salario }}</p>
-            </div>
-          </div>
-        </fieldset> -->
-
         <!-- CallActions -->
         <div class="flex justify-end gap-4 mt-8">
 
           <button v-if="action !== 'view'" type="button" @click="limpar"
             class="px-6 py-2 text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-md transition-colors">
-            {{ props.action === 'cadastro' ? 'Limpar' : 'Restaurar' }}
+            {{ props.action === 'create' ? 'Limpar' : 'Restaurar' }}
           </button>
 
-          <button type="button" @click="voltar"
+          <button type="button" @click="cancelar"
             class="px-6 py-2 text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-md transition-colors">
             Cancelar
           </button>
@@ -136,21 +112,34 @@
 </template>
 
 <script setup>
+
+// importações
 import { ref, reactive, onMounted } from 'vue'
-const { authFetch } = useFetchAuth()
-const router = useRouter()
-const isLoading = ref(false)
-const errors = reactive({});
 
-import { useNotify } from '~/composables/useNotify';
-const { notify, errorMessage } = useNotify();
-
+// definição das Props
 const props = defineProps({
   titulo: { type: String, required: true },
   descricao: { type: String, required: true },
   action: { type: String, required: true }
 })
 
+// injeção do composable responsável por fazer as requsições autenticadas
+const { authFetch } = useFetchAuth()
+
+// injeção do composable responsável por notificar as mensagens ao usuario
+import { useNotify } from '~/composables/useNotify';
+const { notify, errorMessage } = useNotify();
+
+// injeção do composable responsável por tratar os erros da api
+const { handleError } = useApiErrorHandler();
+
+// constante para controle de carregamento
+const isLoading = ref(false)
+
+// Objeto reativo para armazenar os erros
+const errors = reactive({});
+
+// opções default para select de cargo
 const opcoesCargo = [
   { label: "Programador", value: "1", default: true },
   { label: "Programador FrontEnd", value: "2" },
@@ -158,13 +147,14 @@ const opcoesCargo = [
   { label: "Gerente de Suporte", value: "5" },
 ];
 
+// opções defauto para select de gênero
 const opcoesGenero = [
   { label: "Não informado", value: "Não informado" },
   { label: "Masculino", value: "Masculino" },
   { label: "Feminino", value: "Feminino" },
 ];
 
-// Definindo o estado reativo usando `reactive`
+// Objeto reativo para armazenar os dados do formulário
 const form = reactive({
   id: '',
   nome: '',
@@ -183,14 +173,28 @@ const form = reactive({
   telefone: ""
 });
 
+// Objeto reativo para armazenar os dados do formulário em caso de Alteração
+// o objetivo é restaurar os dados do formulário caso o usuário cancele a edição
 const formBkp = ref({});
 
-// Pega o ID da rota
-const route = useRoute()
-const id = ref(route.params.id) // Pega o ID da URL dinamicamente
+// Pegar o ID da rota
+const id = ref(useRoute().params.id)
 
-// Função para submeter o formulário
-function submitForm() {
+/**
+ * Metodo responsável por submeter o formulário
+ */
+const submitForm = () => {
+  // validar o formulário
+  if (validateForm()) {
+    props.action === 'create' ? create(form) : update(form)
+  }
+}
+
+/**
+ * Metodo responsável por validar o formulário, executando validações simples
+ * no lado do cliente
+ */
+const validateForm = () => {
 
   // Limpa os erros antes de validar novamente
   Object.keys(errors).forEach(key => delete errors[key]);
@@ -211,26 +215,25 @@ function submitForm() {
     errors.cpf = 'o CPF é obrigatório';
   }
 
+  // exemplo de customização de validação
   if (form.salario < 1518) {
-    errors.salario = 'o Salário deve ser igual ou maior ao mínimo no Brsil: R$ 1.518.00';
+    errors.salario = 'o Salário deve ser igual ou maior ao mínimo no Brasil: R$ 1.518.00';
   }
-
-  // Verifica se não há erros antes de enviar o formulário
-  if (Object.keys(errors).length === 0) {
-    props.action === 'cadastro' ? create(form) : update(form)
-  }
+  return Object.keys(errors).length === 0
 }
 
-const voltar = () => {
-  router.push('/funcionarios'); // Redireciona para a rota /funcinarios
+/**
+ * Metodo responsável por cancelar a ação atual do formulário e 
+ * voltar para a rota de lista de funcionários
+ */
+const cancelar = () => {
+  useRouter().push('/funcionarios'); // Redireciona para a rota /funcinarios
 };
 
-// Função simples para limpar ou  restaurar os dados do formulário
+// Função simples para limpar ou restaurar os dados do formulário
 const limpar = () => {
-  // Lógica de cancelamento
-  // TODO: tratar se form edição ou inclusão
-  if (props.action === 'cadastro') {
-
+  // Caso seja uma nova inclusão, limpar o formulário
+  if (props.action === 'create') {
     Object.assign(form, {
       id: '',
       nome: '',
@@ -257,16 +260,26 @@ const limpar = () => {
   }
 }
 
-// Método para buscar os dados do funcionário
+/**
+ * Metodo responsável por buscar a lista de funcionários
+ * e exibir na tela
+ */
 const show = async (id) => {
   try {
-    const response = await authFetch(`http://localhost:8000/api/funcionarios/${id}`, {
+    // importanto as variáveis de ambiente do config
+    const config = useRuntimeConfig();
+
+    const response = await authFetch(`${config.public.apiBaseUrl}/funcionarios/${id}`, {
       method: 'GET'
     })
 
-    // Atualizar o obj reativo form
-    Object.assign(form, response.funcionario) // Preenche os campos do formulário
+    // Atualizar o obejeto reativo principal do formulário
+    Object.assign(form, response.funcionario)
+
+    // Tratamento para data de nascimento (remover a formatação de timestamp)
     form.data_nascimento = form.data_nascimento.split('T')[0]
+
+    // Gerar um backup dos dados do formulário, caso o metodo limpar seja chamado
     Object.assign(formBkp.value, form) // Preenche os campos do formulário
 
   } catch (error) {
@@ -274,24 +287,27 @@ const show = async (id) => {
   }
 }
 
-
-import { useApiErrorHandler } from '~/composables/useApiErrorHandler';
-
-const { handleError, errorsApi } = useApiErrorHandler();
-
+/**
+ * Metodo responsável por incluir um novo funcionário
+ */
 const create = async (form) => {
   isLoading.value = true
   errorMessage.value = ''
 
   try {
-    const response = await authFetch('http://localhost:8000/api/funcionarios/', {
+
+    // chama o endpoint de inclusão usando o composable de requisições autenticadas 
+    const response = await authFetch(`${config.public.apiBaseUrl}/funcionarios/`, {
       method: 'POST',
-      body: JSON.stringify(form) // Envie os dados do formulário corretamente
+      body: JSON.stringify(form)
     })
 
     if (response) {
+      // notificando o usuário
       notify('Funcionário cadastrado com sucesso!', 'success', 2000)
-      router.push({
+
+      // redirecionando para a rota de listagem
+      useRouter().push({
         path: '/funcionarios',
       })
     }
@@ -299,26 +315,31 @@ const create = async (form) => {
   } catch (error) {
 
     if (error.data?.errors) {
+      // usando o composable de tratamento de erros
       handleError(error, 'Erro ao cadastrar funcionário!');
     }
-    // notify('Erro ao cadastrar! ' + message, 'error', 5000)
 
   } finally {
     isLoading.value = false
   }
 }
 
+/**
+ * Metodo responsável por editar funcionário
+ */
 const update = async (form) => {
 
   try {
-    const response = await authFetch(`http://localhost:8000/api/funcionarios/${form.id}`, {
+    // chama o endpoint de edição usando o composable de requisições autenticadas 
+    const response = await authFetch(`${config.public.apiBaseUrl}/funcionarios/${form.id}`, {
       method: 'PUT',
-      body: JSON.stringify(form) // Envie os dados do formulário corretamente
+      body: JSON.stringify(form)
     })
 
     if (response) {
+      // notificando o usuário
       notify('Funcionário alterado com sucesso!', 'success', 2000)
-      router.push({
+      useRouter().push({
         path: '/funcionarios',
       })
     }
@@ -326,18 +347,16 @@ const update = async (form) => {
   } catch (error) {
 
     if (error.data?.errors) {
-      message += `\n\n`
-      Object.entries(error.data.errors).forEach(([field, messages]) => {
-        message += `${field}: ${messages.join(', ')}\n`
-        errors[field] = messages
-      })
-      handleError(error, 'Erro ao cadastrar funcionário!');
+      // usando o composable de tratamento de erros
+      handleError(error, 'Erro ao alterar funcionário!');
     }
   }
 }
-
+// Executa o método show caso a action do formulário seja diferente de cadastro
+// Ou seja, caso a action do formulário seja de edição ou visualização será feita a 
+// requisição para buscar os dados do funcionário
 onMounted(() => {
-  if (props.action !== 'cadastro' && id.value) {
+  if (props.action !== 'create' && id.value) {
     show(id.value)
   }
 })
