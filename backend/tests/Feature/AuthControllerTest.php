@@ -18,8 +18,8 @@ class AuthControllerTest extends TestCase
     {
         // registrar usuário na base
         $response = $this->postJson('/api/register', [
-            'name' => 'lisandroteste',
-            'email' => 'lisandroteste@pandora.io',
+            'name' => 'desafioTesteRegistro',
+            'email' => 'desafioTesteRegistro@bruningsistemas.com.br',
             'password' => 'password',
             'password_confirmation' => 'password'
         ]);
@@ -29,7 +29,7 @@ class AuthControllerTest extends TestCase
             ->assertJsonStructure(['token']);
 
         $this->assertDatabaseHas('users', [
-            'email' => 'lisandroteste@pandora.io'
+            'email' => 'desafioTesteRegistro@bruningsistemas.com.br'
         ]);
 
         $response->assertStatus(201);
