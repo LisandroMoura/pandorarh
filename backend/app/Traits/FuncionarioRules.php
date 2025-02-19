@@ -5,6 +5,7 @@ namespace App\Traits;
 use App\Models\Funcionario;
 use App\Rules\CpfValidate;
 use App\Rules\StatusValidate;
+use App\Rules\DataNascimentoValidate;
 
 trait FuncionarioRules
 {
@@ -14,7 +15,7 @@ trait FuncionarioRules
         return [
             'email' => 'required|email|unique:funcionarios,email',
             'cpf'   => ['required', 'unique:funcionarios,cpf', new CpfValidate()],
-            'data_nascimento' => 'required',
+            'data_nascimento' => ['required', new DataNascimentoValidate],
             'data_admissao' => 'required',
             'salario' => 'required|numeric',
             // 'pis' => 'unique:funcionarios,pis',
@@ -29,7 +30,7 @@ trait FuncionarioRules
         return [
             'email' => 'email|unique:funcionarios,email,' . $funcionario->id,
             'data_nascimento' => 'nullable|date',
-            'data_admissao' => 'nullable|date',
+            'data_admissao' => ['nullable|date', new DataNascimentoValidate],
             'salario' => 'numeric',
             'cpf' => ['unique:funcionarios,cpf,' . $funcionario->id, new CpfValidate()],
             'status' => [new StatusValidate],
