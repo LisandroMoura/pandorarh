@@ -14,41 +14,48 @@ class FuncionarioSeeder extends Seeder
     {
         //
         // Busca um cargo existente
-        $cargo = DB::table('cargos')->where('nome', 'Desenvolvedor')->first();
+        $cargo = DB::table('cargos')->where('nome', 'Desenvolvedor PHP')->first();
 
         if ($cargo) {
             DB::table('funcionarios')->insert([
                 [
-                    'nome' => 'Lisandro Moura Severino',
-                    'apelido' => 'Lizi',
-                    'cpf' => '12345678901', // unic
+                    'nome' => 'Desafio Bruning',
+                    'apelido' => 'bruning',
+                    'cpf' => '92197043072', // unic
+                    'rg' => '1063026559',
                     'data_nascimento' => '1978-08-11',
                     'genero' => 'Masculino',
-                    'estado_civil' => 'Casado',
-                    'nome_pai' => 'Jorge Santos',
-                    'nome_mae' => 'Maria Eli Moura Ignácio',
-                    // TODO: normalizar Endereço
+                    'nome_pai' => 'Jhon Snow',
+                    'nome_mae' => 'Daenerys Targaryen',
                     'telefone' => '(48) 98829-5059',
-                    'email' => 'lisandroprogramador@gmail.com', // unic
+                    'email' => 'desafio@bruningsistemas.com.br', // unic
                     'endereco' => 'Rua irmã de Bittencourt, 238/304',
-                    'cep' => '88708-493',
-                    'cidade' => 'Tubarão',
-                    'estado' => 'SC',
-                    'cargo_id' => $cargo->id,
-                    'departamento' => 'TI',
-                    'data_admissao' => now(),
-                    'tipo_contrato' => 'CLT',
-                    'carga_horaria_semanal' => 40,
-                    'pis' => '12345678900', // unic
-                    'ctps' => '1234567', // unic
-                    'data_rescisao' => null,
-                    'motivo_rescisao' => null,
                     'status' => 'Ativo',
-                    // dados sensíveis
-                    'salario' => 1000.00,
-                    'banco' => 'Banco do Brasil',
-                    'agencia' => '1234',
-                    'conta' => '56789-0',
+                    'salario' => 1518.01,
+                    'data_admissao' => now(),
+                    'cargo_id' => $cargo->id,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ],
+            ]);
+
+            DB::table('funcionarios')->insert([
+                [
+                    'nome' => 'Teste Bruning',
+                    'apelido' => 'bruning',
+                    'cpf' => '48909737107', // unic
+                    'rg' => '7063026558',
+                    'data_nascimento' => '1978-08-11',
+                    'genero' => 'Masculino',
+                    'nome_pai' => 'Jhon Snow',
+                    'nome_mae' => 'Daenerys Targaryen',
+                    'telefone' => '(48) 98829-5059',
+                    'email' => 'teste@bruningsistemas.com.br', // unic
+                    'endereco' => 'Rua irmã de Bittencourt, 238/304',
+                    'status' => 'Ativo',
+                    'salario' => 1518.01,
+                    'data_admissao' => now(),
+                    'cargo_id' => $cargo->id,
                     'created_at' => now(),
                     'updated_at' => now(),
                 ],

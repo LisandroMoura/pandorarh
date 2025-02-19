@@ -26,22 +26,24 @@ return new class extends Migration
             $table->string('telefone', 20)->nullable();
             $table->string('email', 150)->unique()->nullable();
             $table->text('endereco')->nullable();
-            $table->char('cep', 8)->nullable();
-            $table->string('cidade', 100)->nullable();
-            $table->char('estado', 2)->nullable();
-            $table->string('departamento', 100)->nullable();
             $table->date('data_admissao');
-            $table->enum('tipo_contrato', ['CLT', 'PJ', 'Estágio', 'Autônomo', 'Temporário'])->default('CLT');
             $table->decimal('salario', 10, 2);
-            $table->integer('carga_horaria_semanal')->default(40);
-            $table->string('banco', 100)->nullable();
-            $table->string('agencia', 10)->nullable();
-            $table->string('conta', 20)->nullable();
-            $table->char('pis', 11)->unique()->nullable();
-            $table->string('ctps', 20)->unique()->nullable();
-            $table->date('data_rescisao')->nullable();
-            $table->text('motivo_rescisao')->nullable();
             $table->enum('status', ['Ativo', 'Inativo'])->default('Ativo');
+
+            // TODO: campos que podem ser adicionados futuramente
+            // $table->char('cep', 8)->nullable();
+            // $table->string('cidade', 100)->nullable();
+            // $table->char('estado', 2)->nullable();
+            // $table->string('departamento', 100)->nullable();
+            // $table->enum('tipo_contrato', ['CLT', 'PJ', 'Estágio', 'Autônomo', 'Temporário'])->default('CLT');
+            // $table->integer('carga_horaria_semanal')->default(40);
+            // $table->string('banco', 100)->nullable();
+            // $table->string('agencia', 10)->nullable();
+            // $table->string('conta', 20)->nullable();
+            // $table->char('pis', 11)->unique()->nullable();
+            // $table->string('ctps', 20)->unique()->nullable();
+            // $table->date('data_rescisao')->nullable();
+            // $table->text('motivo_rescisao')->nullable();
 
             // relacionamento com a tabela de cargos
             $table->unsignedBigInteger('cargo_id')->after('estado')->nullable();
