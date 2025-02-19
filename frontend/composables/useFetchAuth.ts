@@ -22,16 +22,16 @@ export const useFetchAuth = () => {
           password: config.public.apiPassword
         }
       })
-
-      // obtendo o token e armazenando no localStorage
-      if (response.token) {
-        localStorage.setItem('pandoraToken', response.token) // Armazena o token no localStorage
+      // Verifica se está no lado do cliente antes de usar localStorage
+      if (typeof window !== 'undefined' && response.token) {
+        localStorage.setItem('pandoraToken', response.token)
         console.log('Login bem-sucedido! Token:', response.token)
         return response.token
       } else {
         console.error('Erro no login: Token não recebido')
         return null
       }
+
     } catch (error) {
       console.error('Erro na requisição:', error)
       return null
