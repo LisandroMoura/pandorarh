@@ -8,10 +8,10 @@
         <!-- Campo de entrada -->
         <input type="text" :value="formattedValue" @input="handleInput" @keypress="onlyNumbers" @blur="formatOnBlur"
             :disabled="inputDisable" class="w-full px-3 py-2 border rounded-md focus:border-red-500"
-            :class="{ 'border-red-500': localErro, [inputCustomClass]: inputCustomClass }">
+            :class="{ 'border-red-500': localErro, [inputCustomClass || '']: inputCustomClass }">
         <!-- Mensagem de erro -->
         <p v-if="localErro" class="text-red-500 text-xs mt-1">{{ localErro }}</p>
-    </div>
+    </div>    
 </template>
 
 <script setup lang="ts">
@@ -60,28 +60,24 @@ const formattedValue = computed(() => {
             return props.modelValue !== null ?
                 new Intl.NumberFormat("pt-BR", {
                     minimumFractionDigits: 2
-                }).format(props.modelValue) :
+                }).format(Number(props.modelValue)) :
                 "";
 
         case "cpf":
             return props.modelValue !== null ?
                 props.modelValue.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4") :
                 "";
-            break;
         case "phone":
             return props.modelValue !== null ?
                 props.modelValue.replace(/(\d{2})(\d{5})(\d{4})/, "($1) $2-$3") :
                 "";
-            break;
         case 'rg':
             return props.modelValue !== null ?
                 props.modelValue.replace(/(\d{2})(\d{3})(\d{3})(\d{1})/, "$1.$2.$3-$4") :
                 "";
-            break;
         default:
-            break;
+            return props.modelValue !== null ? props.modelValue : "";
     }
-    return props.modelValue !== null ? props.modelValue : "";
 });
 
 
@@ -103,8 +99,8 @@ const handleInput = (event: Event) => {
 
     // Formata quando perde o foco
     const formatOnBlur = () => {
-        if (props.modelValue !== null) {
-            emit("update:modelValue", parseFloat(props.modelValue.toFixed(2)));
+        if (props.modelValue !== null && typeof props.modelValue === 'number') {
+            emit("update:modelValue", parseFloat((props.modelValue as number).toFixed(2)));
         }
     };
 
@@ -113,6 +109,5 @@ const handleInput = (event: Event) => {
         localErro.value = "";
         emit("update:inputErro", "");
     }
-};
-</script>
+};</script>
 

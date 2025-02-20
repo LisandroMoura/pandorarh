@@ -29,8 +29,8 @@ trait FuncionarioRules
     {
         return [
             'email' => 'email|unique:funcionarios,email,' . $funcionario->id,
-            'data_nascimento' => 'nullable|date',
-            'data_admissao' => ['nullable|date', new DataNascimentoValidate],
+            'data_admissao' => 'date',
+            'data_nascimento' => ['date', new DataNascimentoValidate],
             'salario' => 'numeric',
             'cpf' => ['unique:funcionarios,cpf,' . $funcionario->id, new CpfValidate()],
             'status' => [new StatusValidate],
