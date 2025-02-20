@@ -115,4 +115,4 @@ const handleInput = (event: Event) => {
     }
 };
 </script>
-</script>
+
