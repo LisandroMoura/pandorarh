@@ -17,9 +17,9 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 
 /// rota para funcionários Entity
-Route::middleware('auth:sanctum')->group(function () {
+// Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource("funcionarios", FuncionarioController::class);
-});
+// });
 // rota para cargos Entity
 Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource("cargos", CargoController::class);
