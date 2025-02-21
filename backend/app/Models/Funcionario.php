@@ -27,13 +27,13 @@ class Funcionario extends Model
         'endereco',
         'data_admissao',
         'salario',
+        'cargo_id',
         'status',
 
         // TODO: campos que podem ser adicionados futuramente
         // 'cep',
         // 'cidade',
         // 'estado',
-        // 'cargo_id',
         // 'departamento',
         // 'tipo_contrato',
         // 'carga_horaria_semanal',
