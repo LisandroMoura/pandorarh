@@ -42,19 +42,19 @@ export const useFetchAuth = () => {
    * Metodo que executa as requisições com autenticação
    */
   const authFetch = async (url: string, options: any = {}) => {
-    let token = localStorage.getItem('pandoraToken')
+    // let token = localStorage.getItem('pandoraToken')
 
     // Verifica se o token existe, caso não existir, vamos fazer o login no backend
-    if (!token) {
-      token = await authLogin() // Aguarda o login antes de continuar
-      if (!token) throw new Error('Não foi possível obter o token')
-    }
+    // if (!token) {
+    //   token = await authLogin() // Aguarda o login antes de continuar
+    //   if (!token) throw new Error('Não foi possível obter o token')
+    // }
 
     return await $fetch(url, {
       ...options,
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
+        // Authorization: `Bearer ${token}`,
         ...options.headers
       }
     })
