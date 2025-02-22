@@ -1,6 +1,7 @@
 <template>
   <div class="w-full px-2">
     <Breadcrumb titulo="Cadastrar novo Funcionário:" currentPage="form" />
+    <Loading v-if="isLoading" />
     <div class="mx-auto p-4 bg-white rounded-lg shadow-md">
       <form @submit.prevent="submitForm" class="space-y-6">
         <!--mensagens -->
@@ -298,6 +299,7 @@ const show = async (id) => {
  * Metodo responsável por incluir um novo funcionário
  */
 const create = async (form) => {
+  // definindo o estado de carregamento
   isLoading.value = true
   errorMessage.value = ''
 
@@ -309,9 +311,13 @@ const create = async (form) => {
       body: JSON.stringify(form)
     })
 
+    // definindo o estado de carregamento
+    isLoading.value = false
+
+    // verifica se a resposta da requisição foi bem sucedida
     if (response) {
       // notificando o usuário
-      notify('Funcionário cadastrado com sucesso!', 'success', 2000)
+      notify('Funcionário cadastrado com sucesso!', 'success', 5000)
 
       // redirecionando para a rota de listagem
       useRouter().push({
@@ -326,9 +332,7 @@ const create = async (form) => {
       handleError(error, 'Erro ao cadastrar funcionário!', errors);
     }
 
-  } finally {
-    isLoading.value = false
-  }
+  } 
 }
 
 /**
@@ -336,6 +340,10 @@ const create = async (form) => {
  */
 const update = async (form) => {
 
+  // definindo o estado de carregamento
+  isLoading.value = true
+  errorMessage.value = ''
+  
   try {
 
     // chama o endpoint de edição usando o composable de requisições autenticadas 
@@ -343,10 +351,14 @@ const update = async (form) => {
       method: 'PUT',
       body: JSON.stringify(form)
     })
+    
+    // definindo o estado de carregamento
+    isLoading.value = false
 
+    // verifica se a resposta da requisição foi bem sucedida
     if (response) {
       // notificando o usuário
-      notify('Funcionário alterado com sucesso!', 'success', 2000)
+      notify('Funcionário alterado com sucesso!', 'success', 5000)
       useRouter().push({
         path: '/funcionarios',
       })
