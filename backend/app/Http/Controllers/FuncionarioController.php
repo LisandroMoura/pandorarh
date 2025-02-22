@@ -26,6 +26,9 @@ class FuncionarioController extends Controller
      */
     public function store(Request $request)
     {
+        // wait-system: simulação de timing loading para Frontend
+        sleep(2);
+
         // informar a data de admissão.
         $data = $request->all();
         $data['data_admissao'] = now();
@@ -71,7 +74,10 @@ class FuncionarioController extends Controller
      */
     public function update(Request $request, Funcionario $funcionario)
     {
-        // //validar
+        // wait-system: simulação de timing loading para Frontend
+        sleep(2);
+
+        //validar
         $validator = Validator::make(
             $request->all(),
             $this->updateRules($funcionario),
