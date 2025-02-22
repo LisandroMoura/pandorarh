@@ -441,6 +441,9 @@ const create = async (form) => {
       // usando o composable de tratamento de erros
       handleError(error, "Erro ao cadastrar funcionário!", errors);
     }
+  } finally {
+    // definindo o estado de carregamento
+    isLoading.value = false;
   }
 };
 
@@ -478,6 +481,9 @@ const update = async (form) => {
       // usando o composable de tratamento de erros
       handleError(error, "Erro ao alterar funcionário!", errors);
     }
+  } finally {
+    // definindo o estado de carregamento
+    isLoading.value = false;
   }
 };
 // Executa o método show caso a action do formulário seja diferente de cadastro
