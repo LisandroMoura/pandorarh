@@ -31,3 +31,12 @@ Sistema Laravel para o fornecimento de uma API robusta e consistente.
 *   **Composables:** Utilização de composables para reaproveitamento de lógica
     *   `useFetchAuth.ts`: Hook para requisições autenticadas, login na API e gestão do token no `localStorage`.
     *   `useApiErrorHandler.ts`: Hook para tratamento de erros da API.
+
+# Bônus:
+| Algunas nelhorias que foram adicionadas ao desafio:
+
+- [x] Implementar validações para os campos do formulário
+- [x] Implementado `Loading State` nas páginas da aplicação
+- [ ] Implementado  `Error State` nas páginas da aplicação
+
+
