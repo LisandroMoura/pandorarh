@@ -39,14 +39,13 @@ defineProps({
 
 // chamar a rota de lista
 const navegarParaLista = () => {
-  useRouter().push("/funcionarios");
+  useRouter().push("/");
 }
 
 // chamar a rota de cadastro
 const navegarParaCadastro = () => {
   useRouter().push("/funcionarios/cadastro");
 };
-
 
 </script>
 
