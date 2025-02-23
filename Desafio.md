@@ -37,6 +37,13 @@ Sistema Laravel para o fornecimento de uma API robusta e consistente.
 
 - [x] Implementar validações para os campos do formulário
 - [x] Implementado `Loading State` nas páginas da aplicação
-- [ ] Implementado  `Error State` nas páginas da aplicação
+- [x] Implementado  `Error State` nas páginas da aplicação
+- [x] Implementado  `Testes unitários com Vitest` 
+    - Teste do componente Breadcrumb:
+        - Teste de renderização simples do componente
+    - Teste do componentei ListItem:
+        - Teste de renderização das props
+        - Teste de renderização dos botões de ação
+
 
 
