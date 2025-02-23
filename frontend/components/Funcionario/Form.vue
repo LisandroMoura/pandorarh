@@ -429,7 +429,7 @@ const create = async (form) => {
     // verifica se a resposta da requisição foi bem sucedida
     if (response) {
       // notificando o usuário
-      notify("Funcionário cadastrado com sucesso!", "success", 5000);
+      notify("Funcionário cadastrado com sucesso!", "success", 2000);
 
       // redirecionando para a rota de listagem
       useRouter().push({
@@ -471,7 +471,7 @@ const update = async (form) => {
     // verifica se a resposta da requisição foi bem sucedida
     if (response) {
       // notificando o usuário
-      notify("Funcionário alterado com sucesso!", "success", 5000);
+      notify("Funcionário alterado com sucesso!", "success", 2000);
       useRouter().push({
         path: "/",
       });
