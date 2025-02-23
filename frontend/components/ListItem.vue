@@ -90,7 +90,7 @@ const destroy = async (id) => {
 
     // Redirecionando para a lista
     useRouter().push({
-      path: '/funcionarios',
+      path: '/',
     })
 
   } catch (error) {
