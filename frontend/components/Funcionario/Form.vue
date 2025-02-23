@@ -71,7 +71,7 @@
             label="Nome completo"
             type="text"
             v-model="form.nome"
-            v-model:inputErro="errors.nome"
+            :inputErro="errors.nome"
             :inputDisable="action === 'view'"
             :required="true"
           />
@@ -89,7 +89,7 @@
             label="Email"
             type="email"
             v-model="form.email"
-            v-model:inputErro="errors.email"
+            :inputErro="errors.email"
             :inputDisable="action === 'view'"
             :required="true"
           />
@@ -109,7 +109,7 @@
             label="CPF"
             type="text"
             v-model="form.cpf"
-            v-model:inputErro="errors.cpf"
+            :inputErro="errors.cpf"
             :inputDisable="action === 'view'"
             :required="true"
           />
@@ -145,7 +145,7 @@
             type="date"
             v-model="form.data_nascimento"
             :required="true"
-            v-model:inputErro="errors.data_nascimento"
+            :inputErro="errors.data_nascimento"
             :inputDisable="action === 'view'"
           />
           <FormSelect
@@ -190,7 +190,7 @@
             v-model="form.salario"
             :inputDisable="action === 'view'"
             :required="true"
-            v-model:inputErro="errors.salario"
+            :inputErro="errors.salario"
           />
         </FormFieldset>
 
