@@ -4,7 +4,7 @@
      das mensagens da aplicação -->
         <div v-if="showMessage">
             <div v-if="successMessage"
-                class="fixed top-0 left-0 w-full mb-10 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded fixed">
+                class="fixed top-0 left-0 w-full mb-10 bg-green-100 border border-green-400 text-center text-green-700 px-4 py-3 rounded fixed">
                 {{ successMessage }}
             </div>
 
