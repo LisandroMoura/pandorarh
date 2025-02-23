@@ -13,7 +13,7 @@ describe("ListItem", () => {
   };
 
   beforeEach(() => {
-    setupMocks() // <--- Configura todos os mocks
+    setupMocks() 
     vi.clearAllMocks()
     global.confirm = vi.fn(() => true)
   })
@@ -30,12 +30,12 @@ describe("ListItem", () => {
 
   test("renderiza os botões de ação", () => {
     const wrapper = mount(ListItem, { props: mockProps });
-
     const buttons = wrapper.findAll("button");
     expect(buttons).toHaveLength(3);
     // console.dir(buttons)
     expect(buttons[0].text()).toBe("Ver");
     expect(buttons[1].text()).toBe("Editar");
     expect(buttons[2].text()).toBe("Excluir");
-  });
+  });  
+
 });
