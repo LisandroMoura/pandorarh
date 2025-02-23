@@ -1,0 +1,8 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`HelloWorld.vue > renderiza a mensagem correta 1`] = `
+"<div data-v-b52b555e="" class="hello-world">
+  <h1 data-v-b52b555e="">Bem-vindo ao Nuxt!</h1>
+  <p data-v-b52b555e="" class="description"> Componente de exemplo para testes unitários no Nuxt.js </p><button data-v-b52b555e="" class="greet-button"> Clique para saudar </button>
+</div>"
+`;
