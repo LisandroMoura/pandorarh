@@ -26,10 +26,11 @@ cd caminho_do_projeto/backend
 composer install
 ```
 
-3. Iniciar o servidor do backend
+3. Iniciar o servidor do frontend
 ```bash
 php artisan serve
 ```
+
 🔌 Endpoint: http://127.0.0.1:8000
 
 
@@ -58,6 +59,24 @@ npm run dev
 2. Navegue entre as telas:
     - Cadastro: Preencha o formulário com dados do funcionário
     - Listagem: Visualize todos os registros cadastrados
+
+
+## 🧪 Executando o Feature/Unit Tests 
+
+### Backend (Laravel)
+1. Acesse a pasta do backend:
+```bash
+cd caminho_do_projeto/backend
+php artisan test
+```
+
+### Frontend (Nuxt.js)
+
+1. Acesse a pasta do frontend:
+```bash
+cd caminho_do_projeto/frontend
+npm run test  // ou npx vitest
+```
 
 
 ## � Tecnologias Utilizadas
