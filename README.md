@@ -23,7 +23,7 @@ cd caminho_do_projeto/backend
 
 2. Instalar dependências do PHP:
 ```bash
-composer install
+composer install --optimize-autoloader --no-dev
 ```
 
 3. Iniciar o servidor do backend
