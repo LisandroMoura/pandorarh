@@ -43,7 +43,8 @@ cd caminho_do_projeto/frontend
 
 2. Instalar dependências do Node:
 ```bash
-npm install
+npm install --omit=dev
+
 ```
 
 3. Iniciar Aplicação Vue
