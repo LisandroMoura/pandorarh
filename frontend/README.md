@@ -8,7 +8,7 @@ Make sure to install dependencies:
 
 ```bash
 # npm
-npm install
+npm install --omit=dev
 
 # pnpm
 pnpm install
