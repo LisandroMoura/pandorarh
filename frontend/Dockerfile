@@ -1,0 +1,16 @@
+FROM node:18-alpine
+
+# Define o diretório de trabalho
+WORKDIR /app
+
+# Copia os arquivos de dependências
+COPY package*.json ./
+
+# Instala as dependências
+RUN npm install
+
+# Copia o restante do código
+COPY . .
+
+# Build e início do servidor Nuxt
+CMD ["npm", "run", "dev"]
