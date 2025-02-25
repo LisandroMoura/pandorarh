@@ -10,7 +10,7 @@
     <LoadingBar />    
 
     <!-- verificação de dados exibir a tabela de funcionários -->
-    <div v-if="funcionarios.length > 0" class="mx-auto p-4 bg-white rounded-lg shadow-md">
+    <div v-if="funcionarios && Array.isArray(funcionarios) && funcionarios.length > 0" class="mx-auto p-4 bg-white rounded-lg shadow-md">
       <!-- Cabeçalho -->
       <div class="border-b pb-4 mb-6 ">
         <div>
