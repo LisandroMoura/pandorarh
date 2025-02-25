@@ -1,6 +1,7 @@
 services:
-  # Serviço do Backend (Laravel)
+
   backend:
+
     build:
       context: ./backend  # Diretório onde está o código do Laravel
       dockerfile: Dockerfile  # Arquivo Dockerfile para o backend
@@ -15,25 +16,24 @@ services:
       - DB_CONNECTION=sqlite
       - DB_DATABASE=/var/www/html/database/database.sqlite
     networks:
-      - app-network
+      - app-network 
 
-  # Serviço do Frontend (Nuxt.js)
   frontend:
-    build:
-      context: ./frontend  # Diretório onde está o código do Nuxt.js
-      dockerfile: Dockerfile  # Arquivo Dockerfile para o frontend
-    container_name: nuxt_frontend
-    ports:
-      - "3000:3000"  # Porta padrão do Nuxt.js
-    volumes:
-      - ./frontend:/app  # Monta o código local no container
-    environment:
-      - NODE_ENV=development
-      - NUXT_HOST=0.0.0.0
-      - NUXT_PORT=3000
-      - API_URL=http://backend:8000  # URL do backend interno
-    networks:
-      - app-network
+     build:
+       context: ./frontend  # Diretório onde está o código do Nuxt.js
+       dockerfile: Dockerfile  # Arquivo Dockerfile para o frontend
+     container_name: nuxt_frontend
+     ports:
+       - "3000:3000"  # Porta padrão do Nuxt.js
+     volumes:
+       - ./frontend:/app  # Monta o código local no container
+     environment:
+       NODE_ENV: development
+       NUXT_HOST: 0.0.0.0
+       NUXT_PORT: 3000
+       API_URL: http://backend:8000  # URL do backend interno
+     networks:
+       - app-network
 
 # Rede para comunicação entre os serviços
 networks:
