@@ -57,6 +57,10 @@ COPY . .
 # Ajusta permissões corretas
 RUN chown -R www-data:www-data storage bootstrap/cache
 
+# // Permissões para o arquivo database.sqlite
+RUN chown www-data:www-data database/database.sqlite \
+    && chmod 664 database/database.sqlite
+
 CMD php artisan serve --host=0.0.0.0 --port=8000
 
 #CMD ["tail","-f", "/dev/null"] #tranca o terminal com o container
