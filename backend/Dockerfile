@@ -50,8 +50,8 @@ WORKDIR /var/www/html
 COPY . .
 
 # Copia apenas os arquivos necessários para instalar dependências
-#COPY composer.json composer.lock ./
-# RUN composer install --no-dev --optimize-autoloader
+COPY composer.json composer.lock ./
+RUN composer install --no-dev --optimize-autoloader
 
 # Ajusta permissões corretas
 RUN chown -R www-data:www-data storage bootstrap/cache
