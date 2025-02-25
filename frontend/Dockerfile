@@ -17,5 +17,19 @@ COPY . .
 RUN chown -R node:node /app && chmod -R 775 /app
 USER node
 
-# Build e início do servidor Nuxt
-CMD ["npm", "run", "dev"]
+# Define o host para permitir acesso externo
+ENV NITRO_HOST=0.0.0.0
+ENV NITRO_PORT=3000
+
+# Build
+# RUN npm run build
+
+# Expõe a porta 3000
+EXPOSE 3000
+
+# Início do servidor Nuxt
+# CMD ["npm", "run", "preview"]
+# CMD ["npm", "run", "preview", "--", "--host", "0.0.0.0"]
+
+# Build e execução do servidor Nuxt em uma única linha
+CMD sh -c "npm run build && npm run preview"
