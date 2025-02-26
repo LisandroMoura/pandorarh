@@ -12,7 +12,26 @@ Aplicação desenvolvida para um desafio de vaga FullStack, contendo uma interfa
 - Node.js ≥ 16.x
 - npm ≥ 8.x
 
-## 🛠 Instalação
+## 🛠 Instalação via docker
+
+## Pré-requisitos
+- ✅ Docker instalado
+- ✅ Docker Compose instalado
+
+## 🔗 instalando...
+
+- [x] Clone o repositório e faça checkout para esta branch.
+- [x] Execute docker-compose up --build.
+- [x] Acesse http://localhost:3000 para validar o funcionamento.
+
+```bash
+git clone https://github.com/LisandroMoura/pandorarh.git 
+cd pandorarh
+docker-compose up --build
+```
+
+--------------------------------------
+## 🛠 Instalação Manual
 
 ### Backend (Laravel)
 
