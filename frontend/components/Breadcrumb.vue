@@ -3,7 +3,7 @@
     <!--componente custom para exibir os links de navegação: Listar e Novo-->
     <div
       class="w-full flex flex-col md:flex-row justify-between items-start md:items-center px-4 md:px-1 gap-4 pt-4 mb-10">
-      <h1 class="text-3xl font-bold text-[#21223a] w-full md:w-auto">Funcionários da PandoraRH</h1>
+      <h1 class="text-3xl font-bold text-[#21223a] w-full md:w-auto">Funcionários da PandoraRH:</h1>
 
       <nav class="flex gap-4 justify-start md:justify-center w-full md:w-auto">
         <a href="#" @click.prevent="navegarParaLista"
