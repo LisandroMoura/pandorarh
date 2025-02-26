@@ -7,8 +7,7 @@ WORKDIR /app
 COPY package*.json ./
 
 # Instala as dependências
-RUN npm install --omit=dev
-
+# RUN npm install --omit=dev
 
 # Copia o restante do código
 COPY . .
@@ -32,4 +31,4 @@ EXPOSE 3000
 # CMD ["npm", "run", "preview", "--", "--host", "0.0.0.0"]
 
 # Build e execução do servidor Nuxt em uma única linha
-CMD sh -c "npm run build && npm run preview"
+# CMD sh -c "npm run build && npm run preview"
