@@ -1,7 +1,7 @@
 services:
 
   backend:
-    image: eduardomourag/pandorarh-backend
+    image: eduardomourag/pandorarh-back
     container_name: laravel_backend
     ports:
       - "8000:8000"  # Mapeia a porta 8000 do host para o container
@@ -18,7 +18,7 @@ services:
     networks:
       - app-network
   frontend:
-     image: eduardomourag/pandorarh-frontend     
+     image: eduardomourag/pandorarh-front     
      container_name: nuxt_frontend
      ports:
        - "3000:3000"  # Porta padrão do Nuxt.js
