@@ -1,9 +1,7 @@
 services:
 
   backend:
-    build:
-      context: ./backend  # Diretório onde está o código do Laravel
-      dockerfile: Dockerfile  # Arquivo Dockerfile para o backend
+    image: eduardomourag/pandorarh-backend
     container_name: laravel_backend
     ports:
       - "8000:8000"  # Mapeia a porta 8000 do host para o container
@@ -20,9 +18,7 @@ services:
     networks:
       - app-network
   frontend:
-     build:
-       context: ./frontend  # Diretório onde está o código do Nuxt.js
-       dockerfile: Dockerfile  # Arquivo Dockerfile para o frontend
+     image: eduardomourag/pandorarh-frontend     
      container_name: nuxt_frontend
      ports:
        - "3000:3000"  # Porta padrão do Nuxt.js
